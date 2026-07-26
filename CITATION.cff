@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this formalization, please cite this repository and the referenced source papers."
+title: "Feige's Unit-Slack Conjecture in Lean"
+type: software
+version: 0.1.0
+date-released: 2026-07-25
+authors:
+  - family-names: Zhou
+    given-names: Zhengqing
+  - name: "GPT-5.6 Pro"
+keywords:
+  - Lean
+  - probability
+  - Feige conjecture
+  - exact calibration
+  - convex geometry
+license: Apache-2.0

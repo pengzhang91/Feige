@@ -1,0 +1,9 @@
+/.lake/
+/.vscode/
+/.idea/
+/.DS_Store
+**/.DS_Store
+*.olean
+*.ilean
+*.trace
+/tmp/

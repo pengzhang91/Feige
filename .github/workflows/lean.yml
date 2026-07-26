@@ -1,0 +1,53 @@
+name: Lean
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build ${{ matrix.target }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - VlassisThomas
+          - Grunbaum
+          - Feige
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+
+      - name: Configure Lean and build the block
+        uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9 # v1.5.0
+        with:
+          auto-config: false
+          build: true
+          build-args: ${{ matrix.target }}
+          use-mathlib-cache: true
+
+      - name: Audit public theorem
+        env:
+          TARGET: ${{ matrix.target }}
+        run: |
+          case "$TARGET" in
+            VlassisThomas) lake env lean VlassisThomas/Audit.lean ;;
+            Grunbaum) lake env lean Grunbaum/Audit.lean ;;
+            Feige) lake env lean Feige/FinalAudit.lean ;;
+          esac
+
+      - name: Reject proof placeholders and custom axioms
+        run: |
+          if find . -path './.lake' -prune -o \
+              -type f -name '*.lean' -print0 |
+              xargs -0 grep -nE \
+                '(^|[^[:alnum:]_])(sorry|admit|sorryAx)([^[:alnum:]_]|$)|^[[:space:]]*axiom[[:space:]]'; then
+            exit 1
+          fi

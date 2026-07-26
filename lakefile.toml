@@ -1,0 +1,27 @@
+name = "feige"
+version = "0.1.0"
+keywords = ["mathematics", "probability", "formalization"]
+defaultTargets = ["VlassisThomas", "Grunbaum", "Feige"]
+
+[leanOptions]
+pp.unicode.fun = true
+relaxedAutoImplicit = false
+weak.linter.mathlibStandardSet = true
+maxSynthPendingDepth = 3
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.31.0"
+
+[[lean_lib]]
+name = "VlassisThomas"
+
+[[lean_lib]]
+name = "LeanPool"
+
+[[lean_lib]]
+name = "Grunbaum"
+
+[[lean_lib]]
+name = "Feige"
