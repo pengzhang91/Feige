@@ -5,9 +5,9 @@ import Feige.ChainMeasure
 # Expectations on inserted maximal chains
 
 This file rewrites the chain expectation in terms of the direct inserted
-states from equation (31).  Together with `InsertionK` and
-`InsertionAlgebra`, it is the bridge from concrete Boolean chains to the
-pairwise mass-transport calculation.
+states.  Together with `InsertionK` and `InsertionAlgebra`, it is the bridge
+from concrete Boolean chains to the pairwise mass-transport calculation in
+the proof of Theorem 2.1.
 -/
 
 open scoped BigOperators
@@ -35,7 +35,7 @@ theorem booleanChainExpectation_eq_levelSum {m : ℕ}
   rw [dif_pos r.isLt]
 
 /-- For an inserted permutation, the same expectation is carried by the
-direct states `C₀,...,C_J,H_J,...,Hₙ` of equation (31). -/
+direct states `C₀,...,C_J,H_J,...,Hₙ`. -/
 theorem booleanChainExpectation_insertChainPerm_eq_levelSum {n : ℕ}
     (γ β : Fin (n + 1) → ℝ) (σ : Equiv.Perm (Fin n))
     (J : Fin (n + 1))
@@ -75,9 +75,8 @@ noncomputable def revealedLastPayoff {n : ℕ}
   (1 - p) * g (liftChainState S) +
     p * g (insert (Fin.last n) (liftChainState S))
 
-/-- Equation (35) in expectation form: the old chain followed by an
-independent Bernoulli reveal expands into the independent lower and upper
-pair masses. -/
+/-- In expectation form, the old chain followed by an independent Bernoulli
+reveal expands into the independent lower and upper pair masses. -/
 theorem booleanChainExpectation_revealedLast_eq_pairSum {n : ℕ}
     (γ β : Fin (n + 1) → ℝ) (σ : Equiv.Perm (Fin n))
     (hγ : ∀ i, 0 ≤ γ i) (hβ : ∀ i, 0 ≤ β i)
@@ -170,7 +169,7 @@ theorem insertionPairScore_eq_booleanChainExpectation {n : ℕ}
   intro r hr
   exact insertionLevelScore_eq_booleanChainTerm γ β σ J g r
 
-/-- Concrete finite conclusion of Lemma 4.4.
+/-- Concrete finite conclusion of the chain-insertion step.
 
 All combinatorial and averaging steps have been discharged: the remaining
 hypotheses are exactly the analytic sequence identities and signs supplied
@@ -220,10 +219,10 @@ theorem exists_insertChainPerm_expectation_ge_of_transfer {n : ℕ}
   rw [← insertionPairScore_eq_booleanChainExpectation γ β σ J hγ hβ g]
   exact hscore
 
-/-- Lemma 4.4 specialized to the actual `F,A,B,w,θ` sequences of an old
-Boolean chain.  Only strict band positivity, monotonicity of `θ`, the
-edgewise transfer identity, and the old-expectation expansion remain as
-analytic inputs. -/
+/-- The chain-insertion conclusion specialized to the actual `F,A,B,w,θ`
+sequences of an old Boolean chain.  Only strict band positivity,
+monotonicity of `θ`, the edgewise transfer identity, and the
+old-expectation expansion remain as analytic inputs. -/
 theorem exists_insertChainPerm_expectation_ge {n : ℕ}
     (γ β : Fin (n + 1) → ℝ) (σ : Equiv.Perm (Fin n))
     (hγ : ∀ i, 0 ≤ γ i) (hβ : ∀ i, 0 ≤ β i)
@@ -260,9 +259,9 @@ theorem exists_insertChainPerm_expectation_ge {n : ℕ}
   · simpa [insertionWidth] using htransfer
   · exact hold
 
-/-- Lemma 4.4 in its chain-expectation form: independently revealing the
-new coordinate is dominated by one concrete insertion of that coordinate
-into the old maximal chain. -/
+/-- In chain-expectation form, independently revealing the new coordinate
+is dominated by one concrete insertion of that coordinate into the old
+maximal chain. -/
 theorem exists_insertChainPerm_dominates_reveal {n : ℕ}
     (γ β : Fin (n + 1) → ℝ) (σ : Equiv.Perm (Fin n))
     (hγ : ∀ i, 0 ≤ γ i) (hβ : ∀ i, 0 ≤ β i)

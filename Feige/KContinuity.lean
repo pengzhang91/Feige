@@ -5,10 +5,11 @@ import Mathlib.Topology.Instances.ENNReal.Lemmas
 /-!
 # Continuity core for the Dirichlet statistic
 
-This file formalizes the dominated-convergence part of Lemma 4.7.  It proves
-that membership in the moving halfspace stabilizes away from its boundary,
-and consequently that `dirichletK` is sequentially continuous at every
-parameter whose boundary hyperplane has zero product-exponential measure.
+This file formalizes the dominated-convergence step used to establish the
+continuity needed in the proof of Theorem 2.1.  It proves that membership in
+the moving halfspace stabilizes away from its boundary, and consequently
+that `dirichletK` is sequentially continuous at every parameter whose
+boundary hyperplane has zero product-exponential measure.
 -/
 
 open scoped BigOperators

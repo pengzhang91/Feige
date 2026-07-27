@@ -5,8 +5,8 @@ import Feige.ChainFromBoolean
 /-!
 # Statistic values on an inserted Boolean chain
 
-This file connects the concrete Boolean-chain construction of equation (31)
-to the abstract `A`/`B` statistic sequence used in equations (36)--(40).
+This file connects the concrete inserted Boolean chain to the abstract
+`A`/`B` statistic sequences used in the mass-transport proof of Theorem 2.1.
 -/
 
 namespace Feige
@@ -131,9 +131,8 @@ theorem insertionTheta_zero {n : ℕ}
   rw [hF, hB]
   exact div_self hw'
 
-/-- At every genuine level, the statistic along the inserted permutation
-is exactly `Bᵣ` before insertion and `Aᵣ₋₁` afterwards.  This is the
-statistic-level form of equations (30)--(31). -/
+/-- At every genuine level, the statistic along the inserted permutation is
+exactly `Bᵣ` before insertion and `Aᵣ₋₁` afterwards. -/
 theorem booleanChainK_insertChainPerm_eq {n : ℕ}
     (γ β : Fin (n + 1) → ℝ) (σ : Equiv.Perm (Fin n))
     (J : Fin (n + 1)) (r : Fin (n + 2)) :
@@ -169,8 +168,8 @@ theorem booleanChainK_insertChainPerm_eq_nat {n : ℕ}
     unfold insertionUpperK
     rw [dif_neg (by omega : ¬r - 1 < n + 1)]
 
-/-- The actual chain mass at a present lower state `Cⱼ` is the lower
-rank-contribution appearing in equation (36). -/
+/-- The actual chain mass at a present lower state `Cⱼ` is its lower rank
+contribution. -/
 theorem chainMass_booleanChainK_insert_lower {n : ℕ}
     (γ β : Fin (n + 1) → ℝ) (σ : Equiv.Perm (Fin n))
     (J j : Fin (n + 1)) (hjJ : j ≤ J) :
@@ -187,9 +186,8 @@ theorem chainMass_booleanChainK_insert_lower {n : ℕ}
       (w := fun r ↦ insertionLowerK γ β σ r - insertionUpperK γ β σ r)
       hjJ rfl)
 
-/-- The actual chain mass at a present upper state `Hⱼ` is the upper
-rank-contribution appearing in equation (37), including the terminal edge
-to the zero sentinel. -/
+/-- The actual chain mass at a present upper state `Hⱼ` is its upper rank
+contribution, including the terminal edge to the zero sentinel. -/
 theorem chainMass_booleanChainK_insert_upper {n : ℕ}
     (γ β : Fin (n + 1) → ℝ) (σ : Equiv.Perm (Fin n))
     (J j : Fin (n + 1)) (hJj : J ≤ j) :

@@ -4,9 +4,9 @@ import Feige.TwoPointInduction
 /-!
 # Splitting a finite product law at its last coordinate
 
-These identities are the finite-sum/Tonelli layer used in the induction of
-Section 4.5.  Every high set on `Fin (n + 1)` is uniquely a lifted old high
-set, with or without the last coordinate.
+These identities are the finite-sum/Tonelli layer used in the two-point
+induction for Theorem 2.1.  Every high set on `Fin (n + 1)` is uniquely a
+lifted old high set, with or without the last coordinate.
 -/
 
 open Finset

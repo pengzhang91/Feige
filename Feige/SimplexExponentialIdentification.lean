@@ -4,9 +4,9 @@ import Feige.NNRealExponentialLaw
 /-!
 # Event bridge for the exponential and simplex statistics
 
-This file records the deterministic normalization identity underlying
-equations (3) and (4), in the `NNReal` coordinate model used by
-`expProductMeasure`.
+This file records the deterministic normalization identity between the
+simplex statistic in (2.1) and the internal exponential representation, in
+the `NNReal` coordinate model used by `expProductMeasure`.
 -/
 
 open scoped BigOperators ENNReal

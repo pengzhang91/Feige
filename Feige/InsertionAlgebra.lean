@@ -4,9 +4,9 @@ import Feige.TransferAlgebra
 /-!
 # Algebraic bookkeeping for chain insertion
 
-This file isolates the finite mass calculations in Section 4.4.  The
-analytic content of the exponential transfer lemma is deliberately kept out:
-once that lemma supplies the sign of `η`, the results below identify the new
+This file isolates the finite mass calculations in the chain-insertion
+proof of Theorem 2.1.  The analytic content of the exponential transfer
+step is kept separate: once that step supplies the sign of `η`, the results below identify the new
 chain mixture as an upward transfer inside each pair `{Cⱼ, Hⱼ}`.
 -/
 
@@ -16,15 +16,15 @@ section PairMasses
 
 variable {A B F w θ : ℕ → ℝ} {p : ℝ}
 
-/-- The insertion-position weight from equation (32). -/
+/-- The insertion-position weight. -/
 def insertionWeight (θ : ℕ → ℝ) (j : ℕ) : ℝ :=
   θ j - θ (j + 1)
 
-/-- Averaged mass placed at the lower state `Cⱼ`, equation (36). -/
+/-- Averaged mass placed at the lower state `Cⱼ`. -/
 def insertedLowerMass (B w θ : ℕ → ℝ) (j : ℕ) : ℝ :=
   θ (j + 1) * (B j - B (j + 1)) + insertionWeight θ j * w j
 
-/-- Averaged mass placed at the upper state `Hⱼ`, equation (37). -/
+/-- Averaged mass placed at the upper state `Hⱼ`. -/
 def insertedUpperMass (A θ : ℕ → ℝ) (j : ℕ) : ℝ :=
   (1 - θ (j + 1)) * (A j - A (j + 1))
 
@@ -133,8 +133,8 @@ def insertionStatisticSequence (A B : ℕ → ℝ) (J r : ℕ) : ℝ :=
   if r ≤ J then B r else A (r - 1)
 
 /-- At a lower state `Cⱼ` which is present in the rank-`J` chain, the
-adjacent-difference chain mass is exactly the corresponding contribution
-used in equation (36). -/
+adjacent-difference chain mass is exactly the corresponding lower
+contribution. -/
 theorem chainMass_insertionStatisticSequence_lower
     {A B w : ℕ → ℝ} {J j : ℕ} (hjJ : j ≤ J)
     (hbridge : B j - A j = w j) :
@@ -149,7 +149,7 @@ theorem chainMass_insertionStatisticSequence_lower
       hEq, hjlt, hjJ]
 
 /-- At an upper state `Hⱼ`, present exactly for `J ≤ j`, the
-adjacent-difference chain mass is its contribution in equation (37). -/
+adjacent-difference chain mass is its upper contribution. -/
 theorem chainMass_insertionStatisticSequence_upper
     {A B : ℕ → ℝ} {J j : ℕ} (hJj : J ≤ j) :
     chainMass (insertionStatisticSequence A B J) (j + 1) =
@@ -159,11 +159,11 @@ theorem chainMass_insertionStatisticSequence_upper
   rw [if_neg (by omega : ¬j + 1 ≤ J), if_neg (by omega : ¬j + 1 + 1 ≤ J)]
   congr 1
 
-/-- The upward mass-transfer coefficient in equation (39). -/
+/-- The upward mass-transfer coefficient. -/
 def insertionTransfer (A F θ : ℕ → ℝ) (p : ℝ) (j : ℕ) : ℝ :=
   insertedUpperMass A θ j - independentUpperMass F p j
 
-/-- Equations (36)--(37) preserve the total mass of each pair
+/-- The lower and upper mass formulas preserve the total mass of each pair
 `{Cⱼ, Hⱼ}`. -/
 theorem inserted_pair_total (j : ℕ)
     (hB : ∀ r, B r = A r + w r)
@@ -212,8 +212,8 @@ theorem upward_transfer_improves
   rw [← sub_nonneg, hdiff]
   exact mul_nonneg hη (sub_nonneg.mpr hg)
 
-/-- Summing the pairwise upward transfers proves the expectation comparison
-in equation (33). -/
+/-- Summing the pairwise upward transfers proves the expectation
+comparison. -/
 theorem sum_upward_transfers_improve
     {k : ℕ}
     {newLower newUpper oldLower oldUpper η gLower gUpper : ℕ → ℝ}
@@ -246,7 +246,8 @@ theorem sum_insertionWeight (θ : ℕ → ℝ) (k : ℕ) :
   change (∑ j ∈ Finset.range k, chainMass θ j) = θ 0 - θ k
   simpa using CalibratedChain.sum_chainMass_shift θ 0 k
 
-/-- Under the endpoint conditions in (34), the insertion weights sum to one. -/
+/-- Under the endpoint conditions `θ 0 = 1` and `θ k = 0`, the insertion
+weights sum to one. -/
 theorem sum_insertionWeight_eq_one {θ : ℕ → ℝ} {k : ℕ}
     (hzero : θ 0 = 1) (hend : θ k = 0) :
     (∑ j ∈ Finset.range k, insertionWeight θ j) = 1 := by
@@ -350,8 +351,8 @@ theorem sum_insertionWeight_through {θ : ℕ → ℝ} (j : ℕ)
       1 - θ (j + 1) := by
   rw [sum_insertionWeight, hzero]
 
-/-- Equation (36) obtained by separating the insertion rank `J = j` from
-all later ranks. -/
+/-- The averaged lower-mass formula obtained by separating the insertion
+rank `J = j` from all later ranks. -/
 theorem averaged_lower_mass_eq_insertedLowerMass
     {B w θ : ℕ → ℝ} {j k : ℕ} (hjk : j < k) (hend : θ k = 0) :
     (∑ J ∈ Finset.Ico (j + 1) k, insertionWeight θ J) *
@@ -361,7 +362,8 @@ theorem averaged_lower_mass_eq_insertedLowerMass
   rw [sum_insertionWeight_after hjk hend]
   rfl
 
-/-- Equation (37) obtained by summing over all insertion ranks `J ≤ j`. -/
+/-- The averaged upper-mass formula obtained by summing over all insertion
+ranks `J ≤ j`. -/
 theorem averaged_upper_mass_eq_insertedUpperMass
     {A θ : ℕ → ℝ} (j : ℕ) (hzero : θ 0 = 1) :
     (∑ J ∈ Finset.range (j + 1), insertionWeight θ J) *
@@ -370,7 +372,7 @@ theorem averaged_upper_mass_eq_insertedUpperMass
   rw [sum_insertionWeight_through j hzero]
   rfl
 
-/-- The full weighted rank average gives exactly equation (36). -/
+/-- The full weighted rank average gives the lower-mass formula. -/
 theorem weighted_lowerMassForInsertion_eq
     {B w θ : ℕ → ℝ} {j k : ℕ}
     (hjk : j < k) (hend : θ k = 0) :
@@ -380,7 +382,7 @@ theorem weighted_lowerMassForInsertion_eq
   rw [sum_lowerMassForInsertion hjk,
     averaged_lower_mass_eq_insertedLowerMass hjk hend]
 
-/-- The full weighted rank average gives exactly equation (37). -/
+/-- The full weighted rank average gives the upper-mass formula. -/
 theorem weighted_upperMassForInsertion_eq
     {A θ : ℕ → ℝ} {j k : ℕ}
     (hjk : j < k) (hzero : θ 0 = 1) :
@@ -391,7 +393,7 @@ theorem weighted_upperMassForInsertion_eq
     averaged_upper_mass_eq_insertedUpperMass j hzero]
 
 /-- Averaging the complete pairwise scores over insertion ranks gives the
-averaged masses from equations (36)--(37). -/
+averaged lower and upper masses. -/
 theorem weighted_insertionPairScore_eq
     {A B w θ gLower gUpper : ℕ → ℝ} {k : ℕ}
     (hθ0 : θ 0 = 1) (hθk : θ k = 0) :
@@ -414,8 +416,8 @@ theorem weighted_insertionPairScore_eq
     weighted_upperMassForInsertion_eq hjk hθ0]
 
 /-- A convex average cannot exceed all of its entries.  This is the final
-finite step in Lemma 4.4 selecting one insertion position from the averaged
-chain comparison. -/
+finite step selecting one insertion position from the averaged chain
+comparison. -/
 theorem exists_score_ge_of_le_convex_average
     {k : ℕ} (hk : 0 < k) {weight score : ℕ → ℝ} {old : ℝ}
     (hweight : ∀ j < k, 0 ≤ weight j)
@@ -442,8 +444,8 @@ end Weights
 
 section TransferSign
 
-/-- Equation (18) identifies the insertion coefficient `η`; positivity of
-its four factors gives the upward direction in equation (40). -/
+/-- The local transfer identity identifies the insertion coefficient `η`;
+positivity of its four factors gives the upward transfer direction. -/
 theorem insertionTransfer_nonneg_of_identity
     {η a c d w thetaPlus thetaMinus : ℝ}
     (hid :
@@ -460,13 +462,13 @@ section LocalInsertionConclusion
 
 open scoped BigOperators
 
-/-- The finite mass-transport conclusion of Lemma 4.4.
+/-- The finite mass-transport conclusion of the chain-insertion step.
 
-Once the exponential transfer identity has supplied equation (40) on every
-edge, the independently revealed coordinate is dominated by the averaged
-inserted-chain law for every payoff which is increasing on each pair
-`Cⱼ ⊆ Hⱼ`.  This theorem combines equations (36)--(40); all remaining
-hypotheses are the analytic/probabilistic identities named in the paper. -/
+Once the exponential transfer identity has supplied the required factorized
+transfer on every edge, the independently revealed coordinate is dominated
+by the averaged inserted-chain law for every payoff which is increasing on
+each pair `Cⱼ ⊆ Hⱼ`.  All remaining hypotheses are the corresponding
+analytic and probabilistic identities. -/
 theorem localInsertion_average_pair_payoff_le
     {k : ℕ} {A B F w θ a : ℕ → ℝ} {p c d : ℝ}
     {gLower gUpper : ℕ → ℝ}
@@ -498,7 +500,7 @@ theorem localInsertion_average_pair_payoff_le
       (hθ (Nat.le_succ j))
   · exact hg
 
-/-- Full finite selection step in Lemma 4.4.
+/-- Full finite selection step in the chain-insertion argument.
 
 The two equalities `hold` and `haverage` are precisely the expansions of
 the old hybrid expectation and of the convex average of inserted-chain
@@ -539,8 +541,8 @@ theorem exists_localInsertion_score_of_transfer
     (fun j hj ↦ insertionWeight_nonneg hθ j)
     (sum_insertionWeight_eq_one hθ0 hθk) htransport
 
-/-- Lemma 4.4's finite conclusion with the inserted-chain score expanded
-canonically into its `Cⱼ/Hⱼ` pairs.  Unlike
+/-- The finite chain-insertion conclusion with the inserted-chain score
+expanded canonically into its `Cⱼ/Hⱼ` pairs.  Unlike
 `exists_localInsertion_score_of_transfer`, this theorem no longer asks for
 the averaged-score identity as an external hypothesis. -/
 theorem exists_insertionPairScore_of_transfer

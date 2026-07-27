@@ -4,10 +4,10 @@ import Feige.ChainMeasure
 /-!
 # The finite induction in the two-point calibration argument
 
-Lemma 4.4 is the analytic input: at each stage one can choose an insertion
-position that does not decrease the expectation of an increasing payoff.
-This file treats that statement as an explicit `Prop` parameter and proves
-the remaining finite induction.  Thus no convolution or log-concavity claim
+The local insertion result is the analytic input: at each stage one can
+choose an insertion position that does not decrease the expectation of an
+increasing payoff.  This file treats that statement as an explicit `Prop`
+parameter and proves the remaining finite induction.  Thus no convolution or log-concavity claim
 is hidden in the result below.
 -/
 
@@ -45,8 +45,9 @@ def HasNondecreasingInsertionHybrid {m : ℕ}
     H (Fin.last m) = booleanChainExpectation γ β σ hγ hβ g ∧
     ∀ k : Fin m, H k.castSucc ≤ H k.succ
 
-/-- Abstract form of Lemma 4.4 sufficient for Proposition 4.5: every
-increasing payoff admits nondecreasing insertion choices at all levels. -/
+/-- Abstract local-insertion property sufficient for finite two-point
+calibration: every increasing payoff admits nondecreasing insertion choices
+at all levels. -/
 def LocalInsertionDominance {m : ℕ}
     (γ β p : Fin m → ℝ) (hγ : ∀ i, 0 ≤ γ i) (hβ : ∀ i, 0 ≤ β i) : Prop :=
   ∀ g : Finset (Fin m) → ℝ,
@@ -93,8 +94,8 @@ theorem productExpectation_rejection_eq {m : ℕ}
   intro S _
   by_cases hS : twoPointKFinset γ β S ≤ α <;> simp [hS]
 
-/-- Proposition 4.5, with Lemma 4.4 exposed as the explicit hypothesis
-`hinsert`: the product rejection probability is at most `α`. -/
+/-- Finite two-point calibration with local insertion exposed as the explicit
+hypothesis `hinsert`: the product rejection probability is at most `α`. -/
 theorem twoPoint_product_rejection_le {m : ℕ}
     (γ β : Fin m → ℝ)
     (hγ : ∀ i, 0 ≤ γ i) (hβ : ∀ i, 0 ≤ β i)
@@ -107,7 +108,7 @@ theorem twoPoint_product_rejection_le {m : ℕ}
       (hinsert _ (monotone_booleanRejectionPayoff γ β hγ hβ α))
   exact hσ.trans (booleanChain_rejection_le γ β σ hγ hβ hα)
 
-/-- Proposition 4.5 in the paper's named product-mass notation. -/
+/-- The finite two-point calibration result in named product-mass notation. -/
 theorem twoPoint_rejection_le_of_localInsertion {m : ℕ}
     (γ β : Fin m → ℝ)
     (hγ : ∀ i, 0 ≤ γ i) (hβ : ∀ i, 0 < β i)

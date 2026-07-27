@@ -5,10 +5,11 @@ import Mathlib.Probability.ProbabilityMassFunction.Constructions
 /-!
 # The discrete law of the high set
 
-This file packages the product weights from Section 4 as an actual
-probability measure on `Finset (Fin m)`.  It also identifies the probability
-of the rejection event with `twoPointRejectionMass`, so Proposition 4.5 can
-be stated directly as a probability bound.
+This file packages the product weights used in the proof of Theorem 2.1 as
+an actual probability measure on `Finset (Fin m)`.  It also identifies the
+probability of the rejection event with `twoPointRejectionMass`, so the
+finite two-point calibration result can be stated directly as a probability
+bound.
 -/
 
 open MeasureTheory ProbabilityTheory
@@ -81,8 +82,7 @@ noncomputable def twoPointRejectionEvent {m : ℕ} (γ β : Fin m → ℝ) (α :
     Finset (Finset (Fin m)) :=
   Finset.univ.filter fun S ↦ twoPointKFinset γ β S ≤ α
 
-/-- Its actual probability is the finite rejection mass used in
-Proposition 4.5. -/
+/-- Its actual probability is the finite two-point rejection mass. -/
 theorem highSetMeasure_rejectionEvent {m : ℕ}
     (γ β : Fin m → ℝ) (hγ : ∀ i, 0 ≤ γ i) (hβ : ∀ i, 0 < β i)
     (α : ℝ) :
@@ -134,7 +134,7 @@ theorem iIndepFun_canonicalTwoPointPiVector {m : ℕ}
     hcoord.comp
       (fun i b ↦ if b then highValue (β i) else lowValue (γ i)) hmap
 
-/-- Proposition 4.5 as a bound on an actual event probability. -/
+/-- The finite two-point calibration bound as an actual event probability. -/
 theorem highSetProbability_rejection_le_of_localInsertion {m : ℕ}
     (γ β : Fin m → ℝ)
     (hγ : ∀ i, 0 ≤ γ i) (hβ : ∀ i, 0 < β i)

@@ -8,8 +8,9 @@ namespace Feige
 
 noncomputable section
 
-/-- Grünbaum's theorem supplies exactly the strict upper-halfspace
-property required by the Feige reduction in every positive dimension. -/
+/-- The `α = 0` Grünbaum case of Theorem 2.2 supplies the strict
+upper-halfspace property required by the `δ = 1` Feige reduction in every
+positive dimension. -/
 theorem simplexCentroidHalfspaceProperty_fin_succ (d : ℕ) :
     SimplexCentroidHalfspaceProperty (ι := Fin (d + 1)) := by
   intro y hy hsum

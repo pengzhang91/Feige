@@ -8,7 +8,7 @@ At every old chain level, the three numerical sequences `F`, `B`, and `A`
 are respectively the nonnegative-tail probability of the old state law,
 the positive shift by the new low-side scale, and the negative shift by the
 new high-side scale.  This identifies every nonterminal edge with the
-finite signed-exponential instance of Lemma 4.3.
+finite signed-exponential instance of the local transfer step.
 -/
 
 open MeasureTheory
@@ -144,7 +144,8 @@ theorem insertionTheta_eq_theta_stateLaw {n : ℕ}
   ring
 
 /-- Every genuine adjacent pair of old chain levels realizes exactly the
-finite signed-exponential endpoint pair consumed by Lemma 4.3. -/
+finite signed-exponential endpoint pair consumed by the local transfer
+step. -/
 theorem realizesInsertionEdge_interior {n : ℕ}
     (γ β : Fin (n + 1) → ℝ)
     (hγ : ∀ i, 0 < γ i) (hβ : ∀ i, 0 < β i)

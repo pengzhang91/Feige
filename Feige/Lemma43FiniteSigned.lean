@@ -2,7 +2,7 @@ import Feige.InsertionCommonDensity
 import Feige.Lemma43Complete
 
 /-!
-# Lemma 4.3 for finite signed exponential common parts
+# Local transfer for finite signed-exponential common parts
 
 This module specializes the automatic pushforward-density and
 likelihood-ratio results to the exact common laws appearing on genuine
@@ -17,7 +17,7 @@ namespace Lemma43
 open TransferStein
 open LikelihoodRatio
 
-/-- The complete four-part conclusion of Lemma 4.3 for the two exponential
+/-- The complete four-part local-transfer conclusion for the two exponential
 shifts of a base density. -/
 def CompleteConclusion
     (f : ℝ → ENNReal) (a b c d : ℝ) : Prop :=
@@ -30,8 +30,8 @@ def CompleteConclusion
     theta νM c d ≤ theta νP c d ∧
     0 < w νP c d ∧ 0 < w νM c d
 
-/-- The order half of Lemma 4.3 for a distinguished exponential plus an
-arbitrary finite list of signed scaled exponentials. -/
+/-- The order half of the local transfer result for a distinguished
+exponential plus an arbitrary finite list of signed scaled exponentials. -/
 theorem finiteSignedExp_theta_order
     (Fs : List SignedExpFactor)
     {a b c d : ℝ}
@@ -47,8 +47,8 @@ theorem finiteSignedExp_theta_order
     (fourPointLogConcave_finiteSignedExpSumDensity Fs)
     ha hb hc hd
 
-/-- Full Lemma 4.3, with every analytic and probability hypothesis
-discharged, for a finite signed-exponential common part. -/
+/-- The full local transfer result, with every analytic and probability
+hypothesis discharged, for a finite signed-exponential common part. -/
 theorem finiteSignedExp_complete
     (Fs : List SignedExpFactor)
     {a b c d : ℝ}
@@ -82,7 +82,8 @@ theorem commonFactors_theta_order
   finiteSignedExp_theta_order _
     (hγ changed).le (hβ changed).le hc hd
 
-/-- Full automatic Lemma 4.3 on every genuine insertion edge. -/
+/-- The full automatic local transfer result on every genuine insertion
+edge. -/
 theorem commonFactors_complete
     {ι : Type*} [Fintype ι] [DecidableEq ι]
     (γ β : ι → ℝ) (hγ : ∀ i, 0 < γ i) (hβ : ∀ i, 0 < β i)

@@ -147,7 +147,7 @@ theorem simplexLinearForm_centroid (y : ι → ℝ) :
       (∑ i, y i) / ((Fintype.card ι : ℝ) + 1) := by
   simp [simplexLinearForm, simplexCentroid, div_eq_mul_inv, Finset.sum_mul]
 
-/-- In the normalization used in Proposition 2.3, `∑ i, y i ≥ card ι + 1`
+/-- In the `δ = 1` normalization used in §2.2, `∑ i, y i ≥ card ι + 1`
 means that the centroid lies in the upper halfspace `1 ≤ L_y`. -/
 theorem one_le_simplexLinearForm_centroid (y : ι → ℝ)
     (hy : (Fintype.card ι : ℝ) + 1 ≤ ∑ i, y i) :

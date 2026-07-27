@@ -4,7 +4,7 @@ import Mathlib.Probability.Distributions.Exponential
 # Exponential tail formulas used by the transfer identity
 
 This file supplies the reusable one-dimensional probability calculations
-behind (20) and (21) in Lemma 4.3.  They are stated for Mathlib's
+behind the local exponential transfer step.  They are stated for Mathlib's
 rate-one exponential measure.  In particular, the strict and non-strict
 tails agree, since this measure has no atoms.
 -/
@@ -85,9 +85,9 @@ section ProductFormulas
 
 variable (μ : Measure ℝ)
 
-/-- Product-measure/Tonelli form of (20).  On the canonical product
-space, the first coordinate is `Z` with law `μ` and the second coordinate
-is an independent rate-one exponential variable. -/
+/-- Product-measure/Tonelli form of the lower-tail transfer probability.  On
+the canonical product space, the first coordinate is `Z` with law `μ` and
+the second coordinate is an independent rate-one exponential variable. -/
 theorem prod_measure_u (d : ℝ) (hd : 0 < d) :
     μ.prod (expMeasure 1)
         {p : ℝ × ℝ | 0 ≤ p.1 ∧ p.1 < d * p.2} =
@@ -100,8 +100,8 @@ theorem prod_measure_u (d : ℝ) (hd : 0 < d) :
   intro z
   exact measure_lt_mul_exp hd
 
-/-- Product-measure/Tonelli form of (21).  This is the probability mass
-between the threshold `-cE'` and zero. -/
+/-- Product-measure/Tonelli form of the upper-tail transfer probability.
+This is the mass between the threshold `-cE'` and zero. -/
 theorem prod_measure_v (c : ℝ) (hc : 0 < c) :
     μ.prod (expMeasure 1)
         {p : ℝ × ℝ | p.1 < 0 ∧ -c * p.2 ≤ p.1} =

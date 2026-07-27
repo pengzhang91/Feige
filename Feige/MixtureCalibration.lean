@@ -4,9 +4,9 @@ import Feige.KernelAveraging
 /-!
 # Calibration after latent mixing
 
-This is the measure-theoretic averaging step of Section 4.7.  It is kept
-separate from the construction of the latent law: any probability measure
-on augmented parameters that is almost surely admissible can be used.
+This is the measure-theoretic averaging step in the proof of Theorem 2.1.
+It is kept separate from the construction of the latent law: any probability
+measure on augmented parameters that is almost surely admissible can be used.
 -/
 
 open MeasureTheory ProbabilityTheory

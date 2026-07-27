@@ -5,7 +5,7 @@ import Mathlib.Probability.Independence.Basic
 /-!
 # Reduction from means at most one to means exactly one
 
-This is the final reduction in Section 4.7.
+This is the final mean-normalization reduction in the proof of Theorem 2.1.
 -/
 
 open MeasureTheory ProbabilityTheory Set Filter

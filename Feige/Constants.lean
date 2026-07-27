@@ -6,17 +6,17 @@ import Mathlib.Topology.Instances.ENNReal.Lemmas
 
 This file records the elementary real-analysis facts about
 
-`cₙ = (n / (n + 1))ⁿ`
+`bₙ,₁ = (n / (n + 1))ⁿ`
 
-used in Theorem 1.1 of the PDF.  The probability-theoretic proof is kept in
-later modules.
+which is the `δ = 1` value of the second branch in (1.1).  The
+probability-theoretic proof is kept in later modules.
 -/
 
 namespace Feige
 
 open Filter Topology
 
-/-- The sharp constant in dimension `n`. -/
+/-- The unit-slack sharp constant `bₙ,₁` in dimension `n`. -/
 noncomputable def sharpConstant (n : ℕ) : ℝ :=
   ((n : ℝ) / (n + 1)) ^ n
 

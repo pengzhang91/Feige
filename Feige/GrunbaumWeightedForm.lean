@@ -56,8 +56,8 @@ theorem euclideanSimplexLinearForm_centroid
   simp_rw [Grunbaum.simplexCentroid_apply n]
   rw [div_eq_mul_inv, Finset.sum_mul]
 
-/-- In dimension `d + 1`, the paper's large-sum hypothesis puts the
-simplex centroid in the upper halfspace `1 ≤ L_y`. -/
+/-- In dimension `d + 1`, the `δ = 1` large-sum hypothesis in §2.2 puts
+the simplex centroid in the upper halfspace `1 ≤ L_y`. -/
 theorem one_le_euclideanSimplexLinearForm_centroid
     {d : ℕ} (y : Fin (d + 1) → ℝ)
     (hsum : ((d + 1 : ℕ) : ℝ) + 1 ≤ ∑ i, y i) :

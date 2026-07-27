@@ -1,7 +1,7 @@
 import Feige.Lemma43
 
 /-!
-# Automatic elementary probability relations for Lemma 4.3
+# Automatic elementary relations for the local transfer step
 
 The relations `B = A + u + v` and `F = B - v` are pointwise identities
 between the two transfer test functions and their upper/lower exponential

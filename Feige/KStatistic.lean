@@ -5,13 +5,12 @@ import Mathlib.MeasureTheory.Measure.Real
 import Mathlib.Probability.Distributions.Exponential
 
 /-!
-# The exponential form of the Dirichlet statistic
+# An exponential representation of the Dirichlet statistic
 
-Section 2.1 of the PDF defines `K` using a uniform point of the standard
-simplex and then rewrites it using independent rate-one exponentials.  This
-file starts from the exponential expression (equation (4)); the
-normalized-exponential/simplex identification is isolated in the later
-geometry module.
+Equation (2.1) defines `Kₙ` using a uniform point of the standard simplex.
+For the formal proof of Theorem 2.1, this file uses the equivalent
+independent-rate-one-exponential representation.  Its identification with
+the simplex statistic in (2.1) is isolated in a later geometry module.
 
 The coordinate indexed by `none` is `E₀`; `some i` is `Eᵢ`.  We put the
 exponentials on `ℝ≥0`, so their nonnegativity is encoded by the type and the
@@ -60,7 +59,7 @@ section Statistic
 
 variable {ι : Type*} [Fintype ι]
 
-/-- The event in equation (4) of the PDF. -/
+/-- The exponential event corresponding to the simplex event in (2.1). -/
 def kEvent (y : ι → ℝ) : Set (Option ι → NNReal) :=
   {e | ∑ i, (y i - 1) * (e (some i) : ℝ) ≤ (e none : ℝ)}
 
@@ -71,8 +70,8 @@ theorem measurableSet_kEvent (y : ι → ℝ) : MeasurableSet (kEvent y) := by
       measurable_const.mul ((measurable_pi_apply (some i)).coe_nnreal_real)
   · exact (measurable_pi_apply none).coe_nnreal_real
 
-/-- The Dirichlet statistic, represented by independent exponentials as in
-equation (4) of the PDF. -/
+/-- The Dirichlet statistic from (2.1), represented internally by
+independent rate-one exponentials. -/
 noncomputable def dirichletK (y : ι → ℝ) : ℝ :=
   (expProductMeasure ι).real (kEvent y)
 
@@ -89,8 +88,7 @@ theorem dirichletK_mem_unitInterval (y : ι → ℝ) :
     dirichletK y ∈ Set.Icc (0 : ℝ) 1 :=
   ⟨dirichletK_nonneg y, dirichletK_le_one y⟩
 
-/-- If every coordinate is at most one, the event defining `K` is certain,
-as observed after equation (1) of the Vlassis--Thomas paper. -/
+/-- If every coordinate is at most one, the event defining `K` is certain. -/
 theorem dirichletK_eq_one_of_le_one {y : ι → ℝ}
     (hy : ∀ i, y i ≤ 1) :
     dirichletK y = 1 := by
@@ -117,8 +115,7 @@ theorem kEvent_antitone {y z : ι → ℝ} (hyz : y ≤ z) :
   exact Finset.sum_le_sum fun i _ ↦
     mul_le_mul_of_nonneg_right (sub_le_sub_right (hyz i) 1) (e (some i)).coe_nonneg
 
-/-- `K` is coordinatewise nonincreasing, as observed immediately after
-equation (4). -/
+/-- `K` is coordinatewise nonincreasing. -/
 theorem dirichletK_antitone : Antitone (dirichletK : (ι → ℝ) → ℝ) := by
   intro y z hyz
   exact measureReal_mono (kEvent_antitone hyz)

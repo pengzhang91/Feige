@@ -2,10 +2,11 @@ import Feige.Lemma43Relations
 import Feige.Lemma43Density
 
 /-!
-# Fully automatic Lemma 4.3 interface
+# Fully automatic local exponential transfer interface
 
-This file discharges the bounded-integrability hypotheses in equation (23)
-and assembles the probability relations and density identifications.
+This file discharges the bounded-integrability hypotheses in the transfer
+Stein identities and assembles the probability relations and density
+identifications.
 -/
 
 open MeasureTheory Real Set
@@ -151,7 +152,7 @@ theorem integrable_psiDerivMinus
   rw [integral_expMeasure_one]
   simp only [psiDerivMinus, neg_mul, sub_eq_add_neg]
 
-/-- Equation (23) for the lower test, with all bounded-integrability
+/-- The lower-test transfer identity, with all bounded-integrability
 hypotheses discharged. -/
 theorem equation23_A_probability_auto
     (μ : Measure ℝ) [IsFiniteMeasure μ]
@@ -173,7 +174,7 @@ theorem equation23_A_probability_auto
         (measurable_transferPhiDeriv d) (1 / d)
         (norm_transferPhiDeriv_le hd) (-b)
 
-/-- Equation (23) for the upper test, again with no integrability inputs. -/
+/-- The upper-test transfer identity, again with no integrability inputs. -/
 theorem equation23_B_probability_auto
     (μ : Measure ℝ) [IsFiniteMeasure μ]
     {a b c : ℝ} (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) :
@@ -194,10 +195,10 @@ theorem equation23_B_probability_auto
         (measurable_transferPsiDeriv c) (1 / c)
         (norm_transferPsiDeriv_le hc) (-b)
 
-/-- Lemma 4.3 for the actual positive and negative exponential shifts of an
-arbitrary probability density.  Probability relations, Stein
-integrability, density identification, denominator positivity, and the
-likelihood-ratio order are all discharged internally. -/
+/-- The local transfer result for the actual positive and negative
+exponential shifts of an arbitrary probability density.  Probability
+relations, Stein integrability, density identification, denominator
+positivity, and the likelihood-ratio order are all discharged internally. -/
 theorem complete_for_density
     {f : ℝ → ENNReal} (hf : Measurable f)
     (hflc : LikelihoodRatio.FourPointLogConcave f)

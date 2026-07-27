@@ -6,10 +6,9 @@ import Mathlib.MeasureTheory.Measure.ProbabilityMeasure
 # Uniform measure and halfspace statistic on the simplex
 
 This file equips the full-dimensional simplex with normalized Lebesgue
-measure.  It also isolates the exact geometric statement needed from
-Grünbaum's theorem.  Everything after that single centroid-halfspace
-property, including the strict-boundary/complement step in Proposition 2.3,
-is proved here.
+measure.  It also isolates the `α = 0` centroid-halfspace statement used in
+the `δ = 1` specialization of §2.2.  Everything after that geometric input,
+including the strict-boundary/complement step, is proved here.
 -/
 
 open scoped BigOperators ENNReal
@@ -44,7 +43,7 @@ theorem simplexUniformMeasure_apply {s : Set (ι → ℝ)} (hs : MeasurableSet s
   simp only [simplexUniformMeasure, Measure.coe_smul, Pi.smul_apply,
     smul_eq_mul, simplexRestrictedVolume, Measure.restrict_apply hs]
 
-/-- The simplex form of the Dirichlet statistic in equation (3). -/
+/-- The simplex form of the Dirichlet statistic `Kₙ` in (2.1). -/
 noncomputable def simplexK (y : ι → ℝ) : ℝ :=
   (simplexUniformMeasure ι).real {x | simplexLinearForm y x ≤ 1}
 
@@ -64,9 +63,8 @@ theorem simplexK_le_one (y : ι → ℝ) : simplexK y ≤ 1 := by
       measureReal_mono (subset_univ _)
     _ = 1 := probReal_univ
 
-/-- The precise simplex centroid-halfspace conclusion needed by
-Proposition 2.3.  This is the specialized external boundary currently left
-by the absence of Grünbaum's theorem in Mathlib. -/
+/-- The precise `α = 0` simplex centroid-halfspace conclusion used by the
+`δ = 1` geometric estimate in §2.2. -/
 def SimplexCentroidHalfspaceProperty : Prop :=
   ∀ y : ι → ℝ,
     (∀ i, 0 ≤ y i) →

@@ -3,10 +3,10 @@ import Mathlib.MeasureTheory.Integral.Prod
 /-!
 # Likelihood-ratio comparison for exponential convolutions
 
-This file formalizes the four-point and double-integral parts of
-equations (26)--(27) in Lemma 4.3.  We use an `ℝ≥0∞`-valued density so
-that Tonelli and monotone integration require no auxiliary integrability
-assumptions.
+This file formalizes the four-point and double-integral parts of the local
+exponential transfer step used in the proof of Theorem 2.1.  We use an
+`ℝ≥0∞`-valued density so that Tonelli and monotone integration require no
+auxiliary integrability assumptions.
 -/
 
 open MeasureTheory Real Set
@@ -27,8 +27,8 @@ def FourPointLogConcave (f : ℝ → ℝ≥0∞) : Prop :=
     r ≤ p → p ≤ q → r ≤ s → s ≤ q → p + s = r + q →
       f r * f q ≤ f p * f s
 
-/-- The geometric specialization of the four-point inequality used in
-the proof of (27). -/
+/-- The geometric specialization of the four-point inequality used in the
+likelihood-ratio comparison. -/
 theorem four_point_exponential_shifts
     {f : ℝ → ℝ≥0∞} (hf : FourPointLogConcave f)
     {a b x y s t : ℝ} (ha : 0 ≤ a) (hb : 0 ≤ b)
@@ -45,7 +45,7 @@ theorem four_point_exponential_shifts
     (by ring)
   simpa [mul_comm] using h
 
-/-- The exponential weight in (26). -/
+/-- The exponential convolution weight. -/
 noncomputable def expWeight (s : ℝ) : ℝ≥0∞ :=
   ENNReal.ofReal (exp (-s))
 
@@ -53,15 +53,15 @@ theorem measurable_expWeight : Measurable expWeight := by
   unfold expWeight
   fun_prop
 
-/-- The density `f₊` from (26), expressed as a nonnegative integral. -/
+/-- The positive-shift density `f₊`, expressed as a nonnegative integral. -/
 noncomputable def fPlus (f : ℝ → ℝ≥0∞) (a x : ℝ) : ℝ≥0∞ :=
   ∫⁻ s in Ici 0, f (x - a * s) * expWeight s
 
-/-- The density `f₋` from (26), expressed as a nonnegative integral. -/
+/-- The negative-shift density `f₋`, expressed as a nonnegative integral. -/
 noncomputable def fMinus (f : ℝ → ℝ≥0∞) (b x : ℝ) : ℝ≥0∞ :=
   ∫⁻ t in Ici 0, f (x + b * t) * expWeight t
 
-/-- Monotone likelihood-ratio inequality (27).
+/-- Monotone likelihood-ratio inequality for the two shift densities.
 
 The proof expands both products as double nonnegative integrals and
 applies the four-point inequality pointwise.  Because all functions are
@@ -118,16 +118,16 @@ theorem measurable_fMinus {f : ℝ → ℝ≥0∞} (hf : Measurable f) (b : ℝ)
   exact (hf.comp (measurable_fst.add (measurable_const.mul measurable_snd))).mul
     (measurable_expWeight.comp measurable_snd)
 
-/-- The `u` functional from (20), for a nonnegative density `g`. -/
+/-- The lower-tail transfer functional `u` for a nonnegative density `g`. -/
 noncomputable def uIntegral (g : ℝ → ℝ≥0∞) (d : ℝ) : ℝ≥0∞ :=
   ∫⁻ x in Ici 0, g x * ENNReal.ofReal (exp (-x / d))
 
-/-- The `v` functional from (21), for a nonnegative density `g`. -/
+/-- The upper-tail transfer functional `v` for a nonnegative density `g`. -/
 noncomputable def vIntegral (g : ℝ → ℝ≥0∞) (c : ℝ) : ℝ≥0∞ :=
   ∫⁻ y in Iio 0, g y * ENNReal.ofReal (exp (y / c))
 
-/-- Integrating (27) against the two exponential weights gives
-`u₋ v₊ ≤ u₊ v₋`. -/
+/-- Integrating the likelihood-ratio comparison against the two exponential
+weights gives `u₋ v₊ ≤ u₊ v₋`. -/
 theorem uMinus_mul_vPlus_le
     {f : ℝ → ℝ≥0∞} (hfmeas : Measurable f)
     (hflc : FourPointLogConcave f)
