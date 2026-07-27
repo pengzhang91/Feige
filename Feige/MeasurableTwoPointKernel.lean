@@ -10,7 +10,7 @@ import Mathlib.MeasureTheory.Integral.Lebesgue.Map
 # A measurable kernel of mean-one two-point laws
 
 This file supplies the measurable-kernel interface needed to condition on
-the latent two-point parameters in Section 4.7.
+the latent two-point parameters in the proof of Theorem 2.1.
 -/
 
 open MeasureTheory ProbabilityTheory Set
@@ -143,7 +143,8 @@ point. -/
 noncomputable def belowAboveProduct (μ : Measure ℝ) : Measure (ℝ × ℝ) :=
   (μ.restrict (Iio 1)).prod (μ.restrict (Ioi 1))
 
-/-- The density `(y-x)/M` in equation (42), written in `ℝ≥0∞`. -/
+/-- The density `(y-x)/M` of the latent below/above pair, written in
+`ℝ≥0∞`. -/
 noncomputable def latentPairDensity (M : ℝ) (p : ℝ × ℝ) : ENNReal :=
   (ENNReal.ofReal M)⁻¹ * ENNReal.ofReal (p.2 - p.1)
 
@@ -152,7 +153,7 @@ theorem measurable_latentPairDensity (M : ℝ) :
   unfold latentPairDensity
   fun_prop
 
-/-- The concrete weighted below×above latent measure from equation (42). -/
+/-- The concrete weighted below×above latent measure. -/
 noncomputable def latentPairMeasure (μ : Measure ℝ) (M : ℝ) :
     Measure (ℝ × ℝ) :=
   (belowAboveProduct μ).withDensity (latentPairDensity M)
@@ -424,7 +425,7 @@ theorem fullKernelMixture_isProbability
 
 /-- Pull the nondegenerate kernel mixture back from the parameter subtype to
 the original weighted pair measure.  This is the change-of-variables layer
-in the Borel-set verification of equation (42). -/
+in the Borel-set verification of the two-point mixture formula. -/
 theorem nondegenerateKernelMixture_apply_pair
     (μ : Measure ℝ) (M : ℝ) {B : Set ℝ} (hB : MeasurableSet B) :
     nondegenerateKernelMixture μ M B =
@@ -573,7 +574,7 @@ theorem nondegenerateKernelMixture_apply_expanded
   rw [hfirst, hsecond, mul_comm (μ.restrict (Iio 1) B)]
 
 /-- The measurable-kernel construction agrees with the direct expansion of
-formula (42). -/
+the two-point mixture formula. -/
 theorem fullKernelMixture_eq_expanded
     {μ : Measure ℝ} [IsFiniteMeasure μ]
     (hμ : Integrable (fun x : ℝ ↦ x) μ) (M : ℝ) :

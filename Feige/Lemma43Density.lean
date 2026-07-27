@@ -2,7 +2,7 @@ import Feige.Lemma43
 import Mathlib.MeasureTheory.Integral.Lebesgue.Map
 
 /-!
-# Density identification for Lemma 4.3
+# Density identification for the local transfer step
 
 This file connects the pushforward laws `zPlusLaw` and `zMinusLaw` to the
 convolution densities `LikelihoodRatio.fPlus` and `fMinus`.

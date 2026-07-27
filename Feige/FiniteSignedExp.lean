@@ -209,7 +209,8 @@ theorem translationTP2_finiteSignedExpSumDensity :
         (finiteSignedExpSumDensity_ne_top Fs)
         (translationTP2_finiteSignedExpSumDensity Fs)
 
-/-- The explicit four-point log-concavity needed in Lemma 4.3. -/
+/-- The explicit four-point log-concavity needed by the local exponential
+transfer step. -/
 theorem fourPointLogConcave_finiteSignedExpSumDensity
     (Fs : List SignedExpFactor) :
     FourPointLogConcave (finiteSignedExpSumDensity Fs) :=

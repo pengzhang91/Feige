@@ -1,7 +1,7 @@
 import Feige.TransferStein
 
 /-!
-# Probability-law formulation of equation (23)
+# Probability-law formulation of the transfer Stein identities
 -/
 
 open MeasureTheory Real Set
@@ -325,8 +325,8 @@ theorem BMinus_eq_law
   unfold psiMinus
   rfl
 
-/-- On any atomless finite law, the paper's `u` probability is exactly
-`d E[φ'(Z)]`. -/
+/-- On any atomless finite law, the lower-tail transfer probability `u` is
+exactly `d E[φ'(Z)]`. -/
 theorem uProbability_eq_derivative
     (ν : Measure ℝ) [IsFiniteMeasure ν] {d : ℝ}
     (hd : 0 < d) (hzero : ν {0} = 0) :
@@ -473,8 +473,8 @@ theorem vMinus_eq_probability
   rw [← mul_assoc, hscale, ← hnest]
   exact (vProbability_zMinus_eq_derivative μ hb hc).symm
 
-/-- First probability identity in equation (23), with `A±` expressed as
-expectations under the actual laws of `Z±` and `u±` as event probabilities. -/
+/-- The lower-test identity with `A±` expressed as expectations under the
+actual laws of `Z±` and `u±` as event probabilities. -/
 theorem equation23_A_probability
     (μ : Measure ℝ) [IsFiniteMeasure μ] {d a b : ℝ}
     (hd : 0 < d) (ha : 0 < a) (hb : 0 < b)
@@ -497,7 +497,7 @@ theorem equation23_A_probability
     ← uMinus_eq_probability μ hb hd hLawDerivMinus]
   exact equation23_A μ hd ha hb hPlus hMinus hDerivPlus hDerivMinus
 
-/-- Second probability identity in equation (23). -/
+/-- The corresponding upper-test probability identity. -/
 theorem equation23_B_probability
     (μ : Measure ℝ) [IsFiniteMeasure μ] {c a b : ℝ}
     (hc : 0 < c) (ha : 0 < a) (hb : 0 < b)

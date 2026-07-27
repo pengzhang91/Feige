@@ -6,8 +6,8 @@ import Mathlib.Probability.Kernel.Composition.Lemmas
 # Coordinatewise two-point mixtures
 
 This file lifts the one-dimensional measurable two-point decomposition to a
-finite independent product.  It is the product-measure interface used in
-Section 4.7 before conditioning on all latent pairs.
+finite independent product.  It is the product-measure interface used in the
+proof of Theorem 2.1 before conditioning on all latent pairs.
 -/
 
 open MeasureTheory ProbabilityTheory Set

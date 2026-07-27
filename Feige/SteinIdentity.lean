@@ -4,9 +4,10 @@ import Mathlib.Probability.Distributions.Exponential
 /-!
 # Exponential Stein identity
 
-This file isolates the integration-by-parts step behind equation (22) of
-Lemma 4.3.  The main theorem is a one-sided identity on the positive
-half-line.  Its assumptions expose exactly the two weighted integrability
+This file isolates the integration-by-parts step behind the local
+exponential transfer identity used in the proof of Theorem 2.1.  The main
+theorem is a one-sided identity on the positive half-line.  Its assumptions
+expose exactly the two weighted integrability
 conditions and the boundary condition at infinity needed for improper
 integration by parts.
 -/
@@ -116,8 +117,8 @@ theorem integral_Ioi_comp_exp_sub
 
 /-- Two-sided exponential Stein identity at a fixed value of `y`.
 
-This is equation (22) before averaging over the law of `Y`.  The first
-four analytic hypotheses are the one-sided requirements for `y + aE`;
+This is the two-sided identity before averaging over the law of `Y`.  The
+first four analytic hypotheses are the one-sided requirements for `y + aE`;
 the next four are those for `y - bE`.
 -/
 theorem two_sided_integral_Ioi

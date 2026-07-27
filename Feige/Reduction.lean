@@ -7,10 +7,10 @@ import Mathlib.Probability.Independence.Basic
 /-!
 # Reduction from exact calibration to Feige's inequality
 
-This file formalizes the manuscript's reduction section.  The analytic
-calibration theorem and the deterministic simplex bridge are exposed as
-separate hypotheses.  The result here is the exact shift, bad-event
-inclusion, and complement argument used in the paper.
+This file formalizes the reduction in §2.2 at `δ = 1`.  The calibration
+theorem and the deterministic simplex bridge are exposed as separate
+hypotheses.  The result here is the shift, bad-event inclusion, and
+complement argument in the proof of Theorem 1.1.
 -/
 
 open scoped BigOperators
@@ -18,8 +18,9 @@ open MeasureTheory ProbabilityTheory Set
 
 namespace Feige
 
-/-- Abstract form of Proposition 2.3: a nonnegative vector with ordinary sum
-at least `n + 1` has Dirichlet statistic at most `1 - cₙ`. -/
+/-- Abstract form of the `δ = 1` geometric estimate in §2.2: a nonnegative
+vector with ordinary sum at least `n + 1` has Dirichlet statistic at most
+`1 - bₙ,₁`. -/
 def LargeSumBridge {n : ℕ} (K : (Fin n → ℝ) → ℝ) : Prop :=
   ∀ y : Fin n → ℝ,
     (∀ i, 0 ≤ y i) →
@@ -40,13 +41,14 @@ def FixedDimensionalFeigeLowerBound (n : ℕ) (c : ℝ) : Prop :=
     c ≤ μ.real
       {ω | (∑ i, X i ω) < (∫ ω', ∑ i, X i ω' ∂μ) + 1}
 
-/-- The shifted variables `Yᵢ = Xᵢ + 1 - E Xᵢ` from equation (9). -/
+/-- The shifted variables `Yᵢ = Xᵢ + 1 - E Xᵢ` used in the proof of
+Theorem 1.1 in §2.2. -/
 noncomputable def shifted {Ω : Type*} [MeasurableSpace Ω] (μ : Measure Ω) {n : ℕ}
     (X : Fin n → Ω → ℝ) (i : Fin n) (ω : Ω) : ℝ :=
   X i ω + 1 - ∫ ω', X i ω' ∂μ
 
-/-- Section 3 of the PDF: exact calibration and the deterministic bridge imply
-the sharp fixed-dimensional Feige bound, with the original strict event
+/-- The `δ = 1` reduction in §2.2: exact calibration and the deterministic
+bridge imply the sharp fixed-dimensional bound for the strict event
 `∑ Xᵢ < E(∑ Xᵢ) + 1`. -/
 theorem sharp_feige_of_calibration_and_largeSumBridge
     {Ω : Type*} [MeasurableSpace Ω] (μ : Measure Ω) [IsProbabilityMeasure μ]

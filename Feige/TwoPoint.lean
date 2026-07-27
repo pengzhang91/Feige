@@ -3,14 +3,14 @@ import Feige.KStatistic
 /-!
 # Mean-one two-point systems
 
-This file begins the formalization of Section 4.1 of the paper.  It records
-the canonical parametrization
+This file develops the two-point reduction used in the formal proof of
+Theorem 2.1.  It records the canonical parametrization
 
 `Yᵢ ∈ {1 - γᵢ, 1 + βᵢ}`,  `P(Yᵢ = 1 + βᵢ) = γᵢ / (γᵢ + βᵢ)`
 
-and proves the Boolean-lattice monotonicity in Lemma 4.1.  The latter is
-obtained directly from the coordinatewise antitonicity of the exponential
-Dirichlet statistic.
+and proves the required Boolean-lattice monotonicity.  The latter is obtained
+directly from the coordinatewise antitonicity of the exponential Dirichlet
+statistic.
 -/
 
 open MeasureTheory ProbabilityTheory Set
@@ -23,10 +23,10 @@ section Parameters
 noncomputable def highProbability (γ β : ℝ) : ℝ :=
   γ / (γ + β)
 
-/-- The low value in the parametrization used in equation (12). -/
+/-- The low value in the mean-one two-point parametrization. -/
 def lowValue (γ : ℝ) : ℝ := 1 - γ
 
-/-- The high value in the parametrization used in equation (12). -/
+/-- The high value in the mean-one two-point parametrization. -/
 def highValue (β : ℝ) : ℝ := 1 + β
 
 theorem highProbability_nonneg {γ β : ℝ} (hγ : 0 ≤ γ) (hβ : 0 < β) :
@@ -38,7 +38,7 @@ theorem highProbability_le_one {γ β : ℝ} (hγ : 0 ≤ γ) (hβ : 0 < β) :
   rw [highProbability, div_le_one (add_pos_of_nonneg_of_pos hγ hβ)]
   linarith
 
-/-- The complementary probability has the symmetric expression in (13). -/
+/-- The complementary probability in symmetric form. -/
 theorem one_sub_highProbability {γ β : ℝ} (h : γ + β ≠ 0) :
     1 - highProbability γ β = β / (γ + β) := by
   rw [highProbability]
@@ -67,12 +67,12 @@ noncomputable def twoPointVector (γ β : ι → ℝ) (S : Set ι) (i : ι) : �
     classical
     exact if i ∈ S then highValue (β i) else lowValue (γ i)
 
-/-- The value `K_m(S)` of equation (15), expressed through `dirichletK`. -/
+/-- The Dirichlet statistic at the two-point vector encoded by `S`. -/
 noncomputable def twoPointK (γ β : ι → ℝ) (S : Set ι) : ℝ :=
   dirichletK (twoPointVector γ β S)
 
-/-- At the bottom of the Boolean lattice every coefficient in equation (4)
-is nonpositive, so the defining event is certain. -/
+/-- At the bottom of the Boolean lattice every coefficient in the internal
+exponential event is nonpositive, so the defining event is certain. -/
 theorem twoPointK_empty (γ β : ι → ℝ) (hγ : ∀ i, 0 ≤ γ i) :
     twoPointK γ β ∅ = 1 := by
   classical
@@ -104,8 +104,8 @@ theorem twoPointVector_mono {γ β : ι → ℝ}
       linarith [hγ i, hβ i]
     · simp [twoPointVector, hiA, hiB]
 
-/-- Lemma 4.1: moving upward in the Boolean lattice can only decrease the
-Dirichlet statistic. -/
+/-- Moving upward in the Boolean lattice can only decrease the Dirichlet
+statistic. -/
 theorem twoPointK_antitone {γ β : ι → ℝ}
     (hγ : ∀ i, 0 ≤ γ i) (hβ : ∀ i, 0 ≤ β i) :
     Antitone (twoPointK γ β : Set ι → ℝ) := by
@@ -116,7 +116,7 @@ section ProductHighSet
 
 variable [DecidableEq ι]
 
-/-- Product-law mass of a high set.  This is `πₘ({S})` in Section 4.1. -/
+/-- Product-law mass of a high set. -/
 def highSetMass (p : ι → ℝ) (S : Finset ι) : ℝ :=
   (∏ i ∈ S, p i) * ∏ i ∈ Finset.univ \ S, (1 - p i)
 
@@ -146,12 +146,12 @@ theorem twoPointKFinset_antitone {γ β : ι → ℝ}
   intro A B hAB
   exact twoPointK_antitone hγ hβ (by simpa using hAB)
 
-/-- Coordinatewise high probabilities from equation (13). -/
+/-- Coordinatewise high probabilities in the two-point parametrization. -/
 noncomputable def twoPointHighProbability (γ β : ι → ℝ) (i : ι) : ℝ :=
   highProbability (γ i) (β i)
 
 /-- Rejection probability under the independent two-point product law,
-written as the finite sum over high sets used in equation (16). -/
+written as a finite sum over high sets. -/
 noncomputable def twoPointRejectionMass
     (γ β : ι → ℝ) (α : ℝ) : ℝ := by
   classical

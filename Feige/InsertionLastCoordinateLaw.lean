@@ -8,7 +8,7 @@ The old signed-exponential state law is exactly the common law obtained in
 the enlarged system after deleting its last coordinate.  Consequently, the
 lower and upper enlarged states are respectively the positive and negative
 exponential shifts of the old law.  These are the dimension-change
-identifications used at every edge of Lemma 4.4.
+identifications used at every chain-insertion edge.
 -/
 
 open MeasureTheory

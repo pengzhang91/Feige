@@ -3,9 +3,9 @@ import Feige.SteinIdentity
 /-!
 # Test functions for the exponential transfer identity
 
-This file formalizes the two test functions used after equation (22).
-They are written with `max` and `min`; for positive `c,d` this is
-equivalent to the indicator notation in the paper and makes global
+This file formalizes the two test functions used in the exponential transfer
+identity.  They are written with `max` and `min`; for positive `c,d` this is
+equivalent to the corresponding indicator notation and makes global
 continuity transparent.
 -/
 
@@ -154,7 +154,8 @@ theorem hasDerivAt_transferPsi_of_neg
   filter_upwards [hloc] with z hz
   exact transferPsi_of_nonpos hc hz
 
-/-- Away from zero, `φ'` has the piecewise formula used in (23). -/
+/-- Away from zero, `φ'` has the piecewise formula used by the transfer
+identity. -/
 theorem hasDerivAt_transferPhi_of_ne_zero
     {d x : ℝ} (hd : 0 < d) (hx : x ≠ 0) :
     HasDerivAt (transferPhi d)
@@ -165,7 +166,8 @@ theorem hasDerivAt_transferPhi_of_ne_zero
   · rw [if_pos hxpos]
     exact hasDerivAt_transferPhi_of_pos hd hxpos
 
-/-- Away from zero, `ψ'` has the piecewise formula used in (23). -/
+/-- Away from zero, `ψ'` has the piecewise formula used by the transfer
+identity. -/
 theorem hasDerivAt_transferPsi_of_ne_zero
     {c x : ℝ} (hc : 0 < c) (hx : x ≠ 0) :
     HasDerivAt (transferPsi c)
@@ -581,7 +583,7 @@ theorem transferPsi_stein_fixed_sub
   have hn := congrArg Neg.neg h
   simpa [sub_eq_add_neg, neg_mul, ← integral_neg, mul_assoc] using hn
 
-/-- Fixed-`y` two-sided version of (22) for `φ`. -/
+/-- Fixed-`y` two-sided exponential Stein identity for `φ`. -/
 theorem transferPhi_stein_fixed_two_sided
     {d y a b : ℝ} (hd : 0 < d) (ha : 0 < a) (hb : 0 < b) :
     (∫ e : ℝ in Ioi 0, transferPhi d (y + a * e) * exp (-e)) -
@@ -594,7 +596,7 @@ theorem transferPhi_stein_fixed_two_sided
   have hm := transferPhi_stein_fixed_sub (y := y) hd hb
   linear_combination hp + hm
 
-/-- Fixed-`y` two-sided version of (22) for `ψ`. -/
+/-- Fixed-`y` two-sided exponential Stein identity for `ψ`. -/
 theorem transferPsi_stein_fixed_two_sided
     {c y a b : ℝ} (hc : 0 < c) (ha : 0 < a) (hb : 0 < b) :
     (∫ e : ℝ in Ioi 0, transferPsi c (y + a * e) * exp (-e)) -

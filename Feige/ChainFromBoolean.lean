@@ -83,7 +83,7 @@ noncomputable def booleanCalibratedChain {m : ℕ} (γ β : Fin m → ℝ)
   initial := booleanChainK_initial γ β σ hγ
   sentinel := booleanChainK_sentinel γ β σ
 
-/-- Exact calibration (Lemma 4.2) for the statistic values along any maximal
+/-- Exact calibration for the statistic values along any maximal
 Boolean-lattice chain. -/
 theorem booleanChain_exact_calibration {m : ℕ} (γ β : Fin m → ℝ)
     (σ : Equiv.Perm (Fin m)) (hγ : ∀ i, 0 ≤ γ i)

@@ -1,17 +1,17 @@
 # Feige's unit-slack conjecture in Lean
 
 This repository gives a machine-checked Lean formalization of a proof of
-Feige's unit-slack conjecture in every fixed positive dimension `n`.  In fact,
-it proves the sharp fixed-dimensional strengthening
+Feige's unit-slack conjecture in every fixed positive dimension `n`.  Specifically,
+it proves
 
-\[
+$$
   \Pr\!\left[\sum_{i=1}^n X_i
-    < \mathbb E\!\left(\sum_{i=1}^n X_i\right)+1\right]
+    < \mathbb{E}\!\left(\sum_{i=1}^n X_i\right)+1\right]
   \ge \left(\frac{n}{n+1}\right)^n
-\]
+$$
 
-for independent, nonnegative, integrable random variables satisfying
-`E[Xᵢ] ≤ 1`, and proves that the constant is optimal for that fixed `n`.
+for any independent, nonnegative, integrable random variables satisfying
+`E[Xᵢ] ≤ 1`. The constant is optimal for that fixed `n`.
 
 The machine-checked entry point, defined in
 [`Feige/MainTheorem.lean`](Feige/MainTheorem.lean), is:
@@ -25,8 +25,8 @@ theorem Feige.sharp_unit_slack_feige_complete
 
 ## Proof architecture
 
-The proof of the fixed-`n` Feige conjecture depends on two substantive
-mathematical inputs:
+The proof of the Feige conjecture depends on two substantive
+mathematical results:
 
 1. the [Vlassis--Thomas exact Dirichlet calibration
    theorem](https://arxiv.org/abs/2607.08415) for independent nonnegative
@@ -36,7 +36,7 @@ mathematical inputs:
 This repository independently formalizes both results.  Each has its own
 public interface, build target, and kernel-axiom audit.  A third block connects
 them through the normalized-exponential/simplex identification and assembles
-the sharp fixed-`n` Feige theorem.
+the Feige theorem.
 
 ### Three independently buildable blocks
 

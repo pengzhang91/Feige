@@ -3,12 +3,12 @@ import Feige.Lemma43ArbitraryBase
 import Feige.Lemma43FiniteSigned
 
 /-!
-# Lemma 4.3 in the insertion-sequence interface
+# The local transfer result in the insertion-sequence interface
 
-The analytic statement of Lemma 4.3 is phrased in terms of two probability
-laws.  Lemma 4.4 instead consumes four numerical sequences along an old
-Boolean chain.  This file records the exact, purely algebraic interface
-between those two presentations.
+The analytic transfer statement is phrased in terms of two probability
+laws, while the chain-insertion step consumes four numerical sequences along
+an old Boolean chain.  This file records the exact, purely algebraic
+interface between those two presentations.
 -/
 
 open MeasureTheory
@@ -23,7 +23,7 @@ theorem theta_nonneg (ν : Measure ℝ) (c d : ℝ) :
     (add_nonneg ENNReal.toReal_nonneg ENNReal.toReal_nonneg)
 
 /-- The entries of the insertion sequences at one edge are represented by
-the two laws occurring in Lemma 4.3. -/
+the two laws occurring in the local transfer step. -/
 def RealizesInsertionEdge
     (upper old width interpolation : ℕ → ℝ) (j : ℕ)
     (νP νM : Measure ℝ) (c d : ℝ) : Prop :=
@@ -35,8 +35,8 @@ def RealizesInsertionEdge
   interpolation j = theta νP c d ∧
   interpolation (j + 1) = theta νM c d
 
-/-- Equation (18) of Lemma 4.3 is exactly the transfer identity required
-on one edge in equation (40). -/
+/-- The factorized local transfer identity is exactly the identity required
+on one chain-insertion edge. -/
 theorem insertionTransfer_eq_of_realizesInsertionEdge
     {upper old width interpolation : ℕ → ℝ} {j : ℕ}
     {νP νM : Measure ℝ} {a c d : ℝ}
@@ -56,8 +56,8 @@ theorem insertionTransfer_eq_of_realizesInsertionEdge
   rw [hAj, hAs, hFj, hFs, hwj, hθj, hθs]
   exact hid
 
-/-- The order and denominator conclusions of Lemma 4.3 transfer verbatim
-to the adjacent entries of the insertion sequences. -/
+/-- The order and denominator conclusions of the local transfer result pass
+verbatim to adjacent entries of the insertion sequences. -/
 theorem insertion_order_widths_of_realizesInsertionEdge
     {upper old width interpolation : ℕ → ℝ} {j : ℕ}
     {νP νM : Measure ℝ} {c d : ℝ}
@@ -95,7 +95,7 @@ theorem insertion_conclusions_of_complete
   exact insertion_order_widths_of_realizesInsertionEdge
     hreal horder hwP
 
-/-- Lemma 4.3 already proved for finite signed-exponential common parts,
+/-- The local transfer result for finite signed-exponential common parts,
 now exposed directly in the insertion-sequence interface. -/
 theorem finiteSignedExp_insertion_conclusions
     (Fs : List LikelihoodRatio.SignedExpFactor)
@@ -120,9 +120,10 @@ theorem finiteSignedExp_insertion_conclusions
     (finiteSignedExp_complete Fs ha hb hc hd)
 
 /-- The terminal edge changes the distinguished exponential from `+E₀` to
-`-E₀`.  Equation (18) still holds for its arbitrary common law; support on
-the nonpositive half-line makes the negative endpoint's interpolation
-parameter zero, which is all the order information needed there. -/
+`-E₀`.  The factorized transfer identity still holds for its arbitrary
+common law; support on the nonpositive half-line makes the negative
+endpoint's interpolation parameter zero, which is all the order information
+needed there. -/
 theorem terminal_insertion_conclusions
     (μ : Measure ℝ) [IsProbabilityMeasure μ]
     (hpos : μ (Set.Ioi 0) = 0)

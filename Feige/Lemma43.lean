@@ -3,7 +3,7 @@ import Feige.TransferAlgebra
 import Feige.LikelihoodRatio
 
 /-!
-# Complete interface for Lemma 4.3
+# Complete interface for the local exponential transfer step
 
 This file packages the probability identity and the likelihood-ratio
 order comparison in forms intended for pointwise use along an insertion
@@ -94,7 +94,7 @@ def ProbabilityRelations
   F νP = B νP c - v νP c ∧
   F νM = B νM c - v νM c
 
-/-- Identity half of Lemma 4.3, stated entirely in the actual
+/-- Identity half of the local transfer step, stated entirely in the actual
 probability quantities of the two laws. -/
 theorem transfer_identity
     (νP νM : Measure ℝ) [IsProbabilityMeasure νP]
@@ -132,8 +132,8 @@ theorem transfer_identity
   · exact hB
   · linarith
 
-/-- Order half of Lemma 4.3 after identifying the four actual tail
-probabilities with the convolution-density integrals in (20)--(21).
+/-- Order half of the local transfer step after identifying the four actual
+tail probabilities with the corresponding convolution-density integrals.
 The identification hypotheses are the exact interface needed from a
 density-of-pushforward lemma. -/
 theorem theta_plus_ge_theta_minus_of_fourPoint
@@ -179,10 +179,11 @@ theorem theta_order
     (w_pos νP hc hd) (w_pos νM hc hd)
     huP huM hvP hvM
 
-/-- Full auditable Lemma 4.3 interface for one insertion-chain edge.
+/-- Full auditable local-transfer interface for one insertion-chain edge.
 The analytic/probability identities and the density identifications are
-separate named hypotheses, and the conclusion exposes both (18), the
-likelihood-ratio order, and positivity of both denominators. -/
+separate named hypotheses, and the conclusion exposes the factorized
+transfer identity, the likelihood-ratio order, and positivity of both
+denominators. -/
 theorem complete
     {f : ℝ → ℝ≥0∞} (hfmeas : Measurable f)
     (hflc : LikelihoodRatio.FourPointLogConcave f)

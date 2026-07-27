@@ -4,9 +4,10 @@ import Feige.Lemma43Insertion
 /-!
 # Assembly of the analytic insertion edges
 
-This file performs the last finite bookkeeping step in Lemma 4.4.  Once
-each genuine edge of the old chain is represented by the two
-signed-exponential endpoint laws from Lemma 4.3, and the terminal edge is
+This file performs the last finite bookkeeping step in the chain-insertion
+argument for Theorem 2.1.  Once each genuine edge of the old chain is
+represented by the two signed-exponential endpoint laws from the local
+transfer step, and the terminal edge is
 represented by its one-sided common law, all positivity, monotonicity, and
 transfer hypotheses required by `exists_insertChainPerm_dominates_reveal`
 follow automatically.
@@ -18,9 +19,8 @@ namespace Feige
 
 noncomputable section
 
-/-- The coefficient `a_j` in equation (40): it is the low-side scale of
-the old coordinate changed at edge `j`, and equals `1` at the terminal
-edge which changes the distinguished exponential. -/
+/-- The low-side scale of the old coordinate changed at edge `j`; it equals
+`1` at the terminal edge, which changes the distinguished exponential. -/
 def insertionEdgeScale {n : ℕ}
     (γ : Fin (n + 1) → ℝ) (σ : Equiv.Perm (Fin n)) (j : ℕ) : ℝ :=
   if hj : j < n then γ (σ ⟨j, hj⟩).castSucc else 1
@@ -36,8 +36,8 @@ theorem insertionTheta_eq_zero_of_ge {n : ℕ}
   rw [booleanChainK_of_not_lt _ _ _ hnot]
   simp [insertionLowerK, insertionUpperK, hnot]
 
-/-- Lemma 4.4 after all measure-theoretic endpoint identifications have
-been exposed as `RealizesInsertionEdge` hypotheses.
+/-- The chain-insertion conclusion after all measure-theoretic endpoint
+identifications have been exposed as `RealizesInsertionEdge` hypotheses.
 
 There is one genuine signed-exponential edge for every old coordinate.
 The final edge changes the distinguished `E₀` from positive to negative;

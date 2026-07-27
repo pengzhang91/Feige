@@ -2,7 +2,7 @@ import Feige.Lemma43Relations
 import Feige.TransferProbability23
 
 /-!
-# Endpoint tail identities for Lemma 4.3
+# Endpoint tail identities for the local transfer step
 -/
 
 open MeasureTheory Real Set

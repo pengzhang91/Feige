@@ -17,11 +17,11 @@ namespace TransferStein
 
 open TransferTestFunctions
 
-/-- Real-valued conditional `u` integrand from (20). -/
+/-- Real-valued conditional lower-tail transfer integrand `u`. -/
 noncomputable def uTailIntegrand (d z : ℝ) : ℝ :=
   if 0 ≤ z then exp (-z / d) else 0
 
-/-- Real-valued conditional `v` integrand from (21). -/
+/-- Real-valued conditional upper-tail transfer integrand `v`. -/
 noncomputable def vTailIntegrand (c z : ℝ) : ℝ :=
   if z < 0 then exp (z / c) else 0
 
@@ -49,8 +49,8 @@ theorem c_mul_transferPsiDeriv
 
 /-- Integral bridge from the analytic `φ'` quantity to the conditional
 tail formula.  Atomlessness at zero is precisely the boundary condition
-needed because the paper uses `z ≥ 0` while the a.e. derivative uses
-`z > 0`. -/
+needed to pass between `z ≥ 0` in the tail event and `z > 0` in the a.e.
+derivative. -/
 theorem d_mul_integral_transferPhiDeriv
     (ν : Measure ℝ) [IsFiniteMeasure ν] {d : ℝ}
     (hd : 0 < d) (hzero : ν {0} = 0) :
@@ -92,7 +92,8 @@ noncomputable def phiDerivMinus (d b y : ℝ) : ℝ :=
   ∫ e : ℝ in Ioi 0,
     b * transferPhiDeriv d (y - b * e) * exp (-e)
 
-/-- Equation (22) for `φ`, averaged over an arbitrary measure `μ`.
+/-- The two-sided exponential Stein identity for `φ`, averaged over an
+arbitrary measure `μ`.
 
 The four hypotheses are exactly those needed to distribute the outer
 Bochner integral over subtraction and addition.
@@ -184,7 +185,8 @@ noncomputable def psiDerivMinus (c b y : ℝ) : ℝ :=
   ∫ e : ℝ in Ioi 0,
     b * transferPsiDeriv c (y - b * e) * exp (-e)
 
-/-- Equation (22) for `ψ`, averaged over an arbitrary measure `μ`. -/
+/-- The two-sided exponential Stein identity for `ψ`, averaged over an
+arbitrary measure `μ`. -/
 theorem integral_psi_two_sided
     (μ : Measure ℝ) {c a b : ℝ}
     (hc : 0 < c) (ha : 0 < a) (hb : 0 < b)
@@ -290,7 +292,7 @@ noncomputable def vPlus (μ : Measure ℝ) (c a : ℝ) : ℝ :=
 noncomputable def vMinus (μ : Measure ℝ) (c b : ℝ) : ℝ :=
   (c / b) * ∫ y, psiDerivMinus c b y ∂μ
 
-/-- First identity in (23), for the analytic quantities above. -/
+/-- The lower-test Stein identity for the analytic quantities above. -/
 theorem equation23_A
     (μ : Measure ℝ) {d a b : ℝ}
     (hd : 0 < d) (ha : 0 < a) (hb : 0 < b)
@@ -308,7 +310,7 @@ theorem equation23_A
   rw [← mul_assoc, hda, ← mul_assoc, hdb]
   linear_combination d * h
 
-/-- Second identity in (23), for the analytic quantities above. -/
+/-- The upper-test Stein identity for the analytic quantities above. -/
 theorem equation23_B
     (μ : Measure ℝ) {c a b : ℝ}
     (hc : 0 < c) (ha : 0 < a) (hb : 0 < b)

@@ -2,7 +2,7 @@ import Feige.Lemma43Complete
 import Feige.Lemma43Endpoints
 
 /-!
-# Lemma 4.3 identity for an arbitrary base law
+# Local transfer identity for an arbitrary base law
 -/
 
 open MeasureTheory Real Set
@@ -16,9 +16,9 @@ open ProbabilityTheory TransferStein TransferTestFunctions
 local instance : IsProbabilityMeasure (expMeasure 1) :=
   isProbabilityMeasure_expMeasure one_pos
 
-/-- Equation (18) and denominator positivity require no density or TP2
-assumption: they hold for the two exponential shifts of every probability
-base law. -/
+/-- The factorized transfer identity and denominator positivity require no
+density or TP2 assumption: they hold for the two exponential shifts of
+every probability base law. -/
 theorem identity_and_w_pos
     (μ : Measure ℝ) [IsProbabilityMeasure μ]
     {a b c d : ℝ} (ha : 0 < a) (hb : 0 < b)

@@ -3,9 +3,9 @@ import Feige.ProductSplit
 /-!
 # Constructing a dominating chain for ordered two-point systems
 
-This is the finite induction in Section 4.5.  Its sole input is the local
-insertion theorem from Section 4.4.  The product law is split at the last
-coordinate, the induction hypothesis constructs a chain on the old
+This is the finite induction used to prove the two-point case of Theorem 2.1.
+Its sole input is the local insertion theorem.  The product law is split at
+the last coordinate, the induction hypothesis constructs a chain on the old
 coordinates, and one insertion of the new coordinate completes the step.
 -/
 
@@ -72,8 +72,8 @@ theorem productHighSetExpectation_zero_eq_chain
   simp [highSetMass, booleanCalibratedChain, chainMass,
     booleanChainK, hK]
 
-/-- Proposition 4.5's finite chain construction for strictly positive
-parameters already arranged in nonincreasing `γ` order. -/
+/-- The finite chain construction for strictly positive parameters already
+arranged in nonincreasing `γ` order. -/
 theorem exists_chain_dominating_product_of_localInsertion
     (hlocal : StrictOrderedLocalInsertion)
     {m : ℕ} (γ β : Fin m → ℝ)

@@ -3,18 +3,18 @@ import Mathlib
 /-!
 # Algebraic part of the exponential transfer identity
 
-This file isolates the purely algebraic end of Lemma 4.3.  All quantities
-which arise as probabilities in the paper are represented by real numbers.
-The two Stein identities in (23), together with
+This file isolates the purely algebraic end of the local exponential
+transfer step used in the proof of Theorem 2.1.  All probability quantities
+are represented by real numbers.  The two Stein identities, together with
 
 * `wε = uε + vε`,
 * `Bε = Aε + wε`,
 * `Fε = Bε - vε`, and
 * `θε = uε / wε`,
 
-imply (24), (25), and finally the transfer identity (18).  No order or
-probabilistic hypotheses are needed for these implications; only the
-denominators have to be nonzero.
+imply the final factorized transfer identity.  No order or probabilistic
+hypotheses are needed for these implications; only the denominators have to
+be nonzero.
 -/
 
 namespace Feige
@@ -26,8 +26,8 @@ variable {uPlus uMinus vPlus vMinus wPlus wMinus : ℝ}
 variable {APlus AMinus BPlus BMinus FPlus FMinus : ℝ}
 variable {thetaPlus thetaMinus : ℝ}
 
-/-- Equation (24), obtained from (23) after substituting
-`Bε = Aε + wε` and `wε = uε + vε`. -/
+/-- An intermediate identity obtained from the Stein relations after
+substituting `Bε = Aε + wε` and `wε = uε + vε`. -/
 theorem exponentialTransfer_eq24
     (hwPlus : wPlus = uPlus + vPlus)
     (hwMinus : wMinus = uMinus + vMinus)
@@ -42,8 +42,8 @@ theorem exponentialTransfer_eq24
   rw [hwPlus, hwMinus] at hB
   linear_combination hA + hB
 
-/-- Equation (25), obtained from the second identity in (23) after
-substituting `Fε = Bε - vε` and `wε = uε + vε`. -/
+/-- A second intermediate identity obtained after substituting
+`Fε = Bε - vε`. -/
 theorem exponentialTransfer_eq25
     (hFPlus : FPlus = BPlus - vPlus)
     (hFMinus : FMinus = BMinus - vMinus)
@@ -63,7 +63,7 @@ theorem one_sub_theta_mul_w
   field_simp [hw0]
   linear_combination hw
 
-/-- The purely algebraic implication `(23) ⇒ (18)` in Lemma 4.3.
+/-- The purely algebraic derivation of the factorized transfer identity.
 
 The assumptions spell out every definitional relation among the abstract
 probability quantities.  Positivity from the probabilistic statement is

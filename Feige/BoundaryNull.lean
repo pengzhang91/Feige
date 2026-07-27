@@ -101,7 +101,7 @@ theorem tendsto_dirichletK' {ι : Type*} [Fintype ι]
       (nhds (dirichletK y)) :=
   tendsto_dirichletK hy (expProductMeasure_kBoundary ι y)
 
-/-- Lemma 4.7: the Dirichlet statistic is continuous. -/
+/-- Continuity of the Dirichlet statistic, used to complete Theorem 2.1. -/
 theorem continuous_dirichletK {ι : Type*} [Fintype ι] :
     Continuous (dirichletK : (ι → ℝ) → ℝ) := by
   rw [continuous_iff_seqContinuous]

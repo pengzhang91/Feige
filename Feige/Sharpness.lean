@@ -8,10 +8,10 @@ import Mathlib.Probability.Distributions.Uniform
 /-!
 # The fixed-dimensional extremal example
 
-This file formalizes the example (11) used to prove sharpness.  The sample
-space is `(Fin n → Fin (n + 1))`, with its uniform law.  Coordinate `i` is
-`n + 1` when the `i`th digit is zero, and is zero otherwise.  Thus every
-coordinate has the advertised two-point law.
+This file formalizes the sharpness construction from §1.2 at `δ = 1`.  The
+sample space is `(Fin n → Fin (n + 1))`, with its uniform law.  Coordinate
+`i` is `n + 1` when the `i`th digit is zero, and is zero otherwise.  Thus
+every coordinate has the two-point law used in the proof outline.
 -/
 
 open scoped BigOperators ENNReal
@@ -40,11 +40,11 @@ instance (n : ℕ) : IsProbabilityMeasure (extremalMeasure n) := by
   unfold extremalMeasure
   infer_instance
 
-/-- The `i`th coordinate of example (11). -/
+/-- The `i`th coordinate of the `δ = 1` sharpness construction in §1.2. -/
 noncomputable def extremalX (n : ℕ) (i : Fin n) (ω : ExtremalSpace n) : ℝ :=
   if ω i = 0 then n + 1 else 0
 
-/-- The sum of all coordinates in example (11). -/
+/-- The sum of all coordinates in the sharpness construction. -/
 noncomputable def extremalSum (n : ℕ) (ω : ExtremalSpace n) : ℝ :=
   ∑ i, extremalX n i ω
 
@@ -203,8 +203,8 @@ theorem extremalGood_probability (n : ℕ) :
       ENNReal.toReal_one]]
   exact rfl
 
-/-- Equation (11): under the uniform product model, the strict threshold
-event has probability exactly `cₙ`. -/
+/-- Under the uniform product model from the sharpness paragraph in §1.2,
+the strict threshold event has probability exactly `bₙ,₁`. -/
 theorem extremal_strict_event_probability (n : ℕ) :
     (extremalMeasure n).real {ω | extremalSum n ω < n + 1} =
       sharpConstant n := by
@@ -232,8 +232,8 @@ theorem extremal_mean_threshold_probability (n : ℕ) :
   simpa only [Nat.cast_add, Nat.cast_one] using
     extremal_strict_event_probability n
 
-/-- Equation (11) proves that no fixed-dimensional lower bound can exceed
-`sharpConstant n`. -/
+/-- The sharpness construction in §1.2 proves that no fixed-dimensional
+unit-slack lower bound can exceed `sharpConstant n`. -/
 theorem fixedDimensionalLowerBound_le_sharpConstant
     {n : ℕ} {c : ℝ} (h : FixedDimensionalFeigeLowerBound n c) :
     c ≤ sharpConstant n := by
@@ -255,8 +255,8 @@ def IsOptimalFixedDimensionalFeigeBound (n : ℕ) (c : ℝ) : Prop :=
     ∀ d : ℝ, FixedDimensionalFeigeLowerBound n d → d ≤ c
 
 /-- Conditional on exact calibration and the deterministic bridge, the
-paper's constant is not only valid but optimal; equation (11) supplies the
-reverse extremal statement. -/
+paper's unit-slack constant is not only valid but optimal; the sharpness
+construction in §1.2 supplies the reverse extremal statement. -/
 theorem sharpConstant_is_optimal_of_structural_inputs
     {n : ℕ} (hn : 0 < n) (K : (Fin n → ℝ) → ℝ)
     (hcal : UniversalCalibration K) (hbridge : LargeSumBridge K) :

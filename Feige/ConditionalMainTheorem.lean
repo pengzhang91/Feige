@@ -2,18 +2,19 @@ import Feige.GeometryBridge
 import Feige.Sharpness
 
 /-!
-# Conditional assembly of the sharp unit-slack theorem
+# Conditional assembly of the unit-slack theorem
 
-This module states the paper's main result in terms of its three remaining
-structural inputs.  The reduction and extremal construction are fully
-discharged: exact calibration, the simplex/exponential identification, and
-the specialized centroid-halfspace inequality are the only inputs.
+This module states the `δ = 1` specialization of the paper's main result in
+terms of three structural inputs.  The reduction and extremal construction
+are fully discharged: Theorem 2.1, the simplex/exponential identification
+of (2.1), and the `α = 0` centroid-halfspace inequality are the only inputs.
 -/
 
 namespace Feige
 
-/-- Theorem 1.1, assembled from the exact calibration theorem and the two
-geometric facts identifying and bounding the Dirichlet statistic. -/
+/-- The `δ = 1` specialization of Theorem 1.1, assembled from Theorem 2.1
+and the two geometric facts identifying and bounding the Dirichlet
+statistic. -/
 theorem sharp_unit_slack_feige_of_paper_inputs
     {n : ℕ} (hn : 0 < n)
     (hcal : UniversalCalibration

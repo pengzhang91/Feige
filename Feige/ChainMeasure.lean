@@ -3,9 +3,10 @@ import Feige.ChainFromBoolean
 /-!
 # Probability measures carried by maximal chains
 
-The paper's `ν_C` is a finite probability mass function on the levels of a
-maximal chain.  This file packages its expectation and relates the indicator
-of a threshold rejection event to `rejectedMass`.
+The auxiliary chain distribution mentioned in the proof outline is a finite
+probability mass function on the levels of a maximal chain.  This file
+packages its expectation and relates the indicator of a threshold rejection
+event to `rejectedMass`.
 -/
 
 open scoped BigOperators
@@ -31,7 +32,7 @@ theorem expectation_nonneg {g : ℕ → ℝ} (hg : ∀ j < m + 1, 0 ≤ g j) :
   exact Finset.sum_nonneg fun j hj ↦
     mul_nonneg (C.mass_nonneg j) (hg j (Finset.mem_range.mp hj))
 
-/-- The rejection indicator used in Lemma 4.2. -/
+/-- The rejection indicator used for exact chain calibration. -/
 noncomputable def rejectionIndicator (α : ℝ) (j : ℕ) : ℝ :=
   if C.K j ≤ α then 1 else 0
 
@@ -56,7 +57,7 @@ end CalibratedChain
 
 section BooleanChain
 
-/-- The paper's chain expectation `E_{ν_C} g` for a maximal Boolean chain. -/
+/-- Expectation `E_{ν_C} g` for the auxiliary maximal-chain law. -/
 noncomputable def booleanChainExpectation {m : ℕ}
     (γ β : Fin m → ℝ) (σ : Equiv.Perm (Fin m))
     (hγ : ∀ i, 0 ≤ γ i) (hβ : ∀ i, 0 ≤ β i)
@@ -85,8 +86,8 @@ theorem booleanChainExpectation_one {m : ℕ}
       simp [Finset.mem_range.mp hj]]
   exact (booleanCalibratedChain γ β σ hγ hβ).total_mass
 
-/-- Lemma 4.2 stated directly for the statistic evaluated on the states of
-a maximal Boolean chain. -/
+/-- Exact calibration stated directly for the statistic evaluated on the
+states of a maximal Boolean chain. -/
 theorem booleanChain_rejection_le {m : ℕ}
     (γ β : Fin m → ℝ) (σ : Equiv.Perm (Fin m))
     (hγ : ∀ i, 0 ≤ γ i) (hβ : ∀ i, 0 ≤ β i)

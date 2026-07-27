@@ -3,15 +3,16 @@ import Feige.TwoPoint
 /-!
 # Calibrated measures on finite chains
 
-This file formalizes the telescoping part of Section 4.2.  We use the
-sentinel convention `K (m + 1) = 0`; consequently every chain mass, including
-the last one, is uniformly the adjacent difference
+This file formalizes the telescoping chain-calibration step used in the
+proof of Theorem 2.1.  We use the sentinel convention `K (m + 1) = 0`;
+consequently every chain mass, including the last one, is uniformly the
+adjacent difference
 
 `q j = K j - K (j + 1)`.
 
 The key fact is that the mass of a terminal segment beginning at `t` is
-exactly `K t`.  Lemma 4.2 of the paper is then immediate whenever the
-rejected states form that terminal segment.
+exactly `K t`, which gives exact chain calibration whenever the rejected
+states form that terminal segment.
 -/
 
 open scoped BigOperators
@@ -92,17 +93,17 @@ theorem terminal_mass_Ico {t : ℕ} (ht : t ≤ m + 1) :
   rw [C.sentinel]
   ring
 
-/-- Lemma 4.2 in terminal-segment form: if rejection begins at `t`, its
-chain probability is at most its threshold `α`. -/
+/-- Terminal-segment form of exact chain calibration: if rejection begins
+at `t`, its chain probability is at most its threshold `α`. -/
 theorem calibration_terminal {t : ℕ} (ht : t ≤ m + 1) {α : ℝ}
     (hreject : C.K t ≤ α) :
     (∑ j ∈ Finset.range (m + 1 - t), chainMass C.K (t + j)) ≤ α := by
   rw [C.terminal_mass ht]
   exact hreject
 
-/-- Lemma 4.2 in the paper's rejection-set formulation.  Monotonicity makes
-the rejected states a terminal segment; `hterminal` names its first index.
-The case `t = m + 1` represents an empty rejection set. -/
+/-- Rejection-set formulation of exact chain calibration.  Monotonicity
+makes the rejected states a terminal segment; `hterminal` names its first
+index.  The case `t = m + 1` represents an empty rejection set. -/
 theorem exact_chain_calibration {t : ℕ} (ht : t ≤ m + 1) {α : ℝ}
     (hα : 0 ≤ α)
     (hterminal : ∀ j, j < m + 1 → (C.K j ≤ α ↔ t ≤ j))
@@ -127,9 +128,9 @@ theorem exact_chain_calibration {t : ℕ} (ht : t ≤ m + 1) {α : ℝ}
     subst t
     simpa using hα
 
-/-- Exact calibration along a chain (Lemma 4.2), with the first rejected
-state chosen automatically.  The zero sentinel guarantees that such an index
-exists; if it is the sentinel itself, the genuine rejection set is empty. -/
+/-- Exact calibration along a chain, with the first rejected state chosen
+automatically.  The zero sentinel guarantees that such an index exists; if
+it is the sentinel itself, the genuine rejection set is empty. -/
 theorem exact_chain_calibration' {α : ℝ} (hα : 0 ≤ α) :
     C.rejectedMass α ≤ α := by
   have hexists : ∃ t : ℕ, C.K t ≤ α := by

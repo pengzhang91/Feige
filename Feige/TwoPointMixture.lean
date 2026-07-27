@@ -4,9 +4,9 @@ import Mathlib.MeasureTheory.Measure.Typeclasses.Probability
 /-!
 # Algebraic core of the two-point mixture lemma
 
-This file begins the formalization of Lemma 4.6.  It isolates the equality of
-the lower and upper first moments and constructs the mean-one two-point law
-`Q_{x,y}` from equation (41).
+This file develops the two-point mixture decomposition used in the proof of
+Theorem 2.1.  It isolates the equality of the lower and upper first moments
+and constructs the mean-one two-point law `Q_{x,y}`.
 -/
 
 open MeasureTheory Set
@@ -35,8 +35,8 @@ theorem integrable_abs_sub_one {μ : Measure ℝ}
     Integrable (fun x : ℝ ↦ |x - 1|) μ :=
   (integrable_sub_one hμ).abs
 
-/-- The two expressions for `M` in Lemma 4.6 agree whenever the law has
-mean one.  No support assumption is needed for this algebraic identity. -/
+/-- The two expressions for `M` agree whenever the law has mean one.  No
+support assumption is needed for this algebraic identity. -/
 theorem belowMoment_eq_aboveMoment {μ : Measure ℝ}
     [IsProbabilityMeasure μ]
     (hμ : Integrable (fun x : ℝ ↦ x) μ)
@@ -74,7 +74,7 @@ theorem twoPointWeights_add {x y : ℝ} (hxy : x ≠ y) :
   field_simp
   ring
 
-/-- Equation (41), expressed as a genuine nonnegative measure. -/
+/-- The mean-one two-point law, expressed as a genuine nonnegative measure. -/
 def twoPointMeasure (x y : ℝ) : Measure ℝ :=
   ENNReal.ofReal (twoPointLowerWeight x y) • Measure.dirac x +
     ENNReal.ofReal (twoPointUpperWeight x y) • Measure.dirac y
@@ -110,7 +110,7 @@ theorem twoPointMeasure_mean {x y : ℝ}
         (y - x) * (y - x)⁻¹ := by field_simp [sub_ne_zero.mpr hxy.ne']; ring
     _ = 1 := mul_inv_cancel₀ (sub_ne_zero.mpr hxy.ne')
 
-/-- Pointwise algebra behind the verification of equation (42). -/
+/-- Pointwise algebra behind the two-point mixture formula. -/
 theorem twoPointMeasure_scaled_apply {x y : ℝ}
     (hx : x ≤ 1) (hy : 1 ≤ y) (hxy : x < y)
     (B : Set ℝ) :
@@ -139,11 +139,11 @@ theorem twoPointMeasure_scaled_apply {x y : ℝ}
     unfold twoPointUpperWeight
     field_simp [sub_ne_zero.mpr hxy.ne']
 
-/-- The measure obtained after expanding the double integral in (42).
+/-- The measure obtained after expanding the double integral in the
+two-point mixture formula.
 
 The first restricted measure is multiplied by the upper moment (integration
-in `y`), and the second by the lower moment (integration in `x`).  This is
-exactly the factorization displayed immediately after equation (42). -/
+in `y`), and the second by the lower moment (integration in `x`). -/
 def expandedTwoPointMixture (μ : Measure ℝ) (M : ℝ) : Measure ℝ :=
   μ {1} • Measure.dirac 1 +
     (ENNReal.ofReal M)⁻¹ •
@@ -175,9 +175,9 @@ theorem restrict_below_add_atom_add_above (μ : Measure ℝ) :
     _ = μ.restrict (Iio 1) + μ.restrict (Iio 1)ᶜ := by rw [h₂]
     _ = μ := h₁
 
-/-- Formula (42) after evaluating its two product integrals.  The support
-assumption from Lemma 4.6 is not needed for this final algebraic identity;
-it is needed only to ensure that the sampled lower point is nonnegative. -/
+/-- The two-point mixture formula after evaluating its two product integrals.
+The support assumption is not needed for this final algebraic identity; it
+is needed only to ensure that the sampled lower point is nonnegative. -/
 theorem expandedTwoPointMixture_eq
     {μ : Measure ℝ} [IsProbabilityMeasure μ]
     (hμ : Integrable (fun x : ℝ ↦ x) μ)
@@ -197,7 +197,7 @@ theorem expandedTwoPointMixture_eq
     _ = μ := restrict_below_add_atom_add_above μ
 
 /-- Version of the preceding theorem retaining the nonnegative-support
-hypothesis appearing in the paper's statement. -/
+hypothesis required by Theorem 2.1. -/
 theorem twoPointMixture_formula42
     {μ : Measure ℝ} [IsProbabilityMeasure μ]
     (hμ : Integrable (fun x : ℝ ↦ x) μ)
@@ -215,8 +215,8 @@ theorem belowMoment_nonneg {μ : Measure ℝ} :
   intro x
   exact div_nonneg (sub_nonneg.mpr (le_abs_self (x - 1))) (by norm_num)
 
-/-- The degenerate branch of Lemma 4.6: if `M = 0`, a mean-one probability
-law is concentrated at one. -/
+/-- The degenerate branch of the mixture decomposition: if `M = 0`, a
+mean-one probability law is concentrated at one. -/
 theorem eq_dirac_one_of_belowMoment_eq_zero
     {μ : Measure ℝ} [IsProbabilityMeasure μ]
     (hμ : Integrable (fun x : ℝ ↦ x) μ)
@@ -276,8 +276,8 @@ theorem eq_dirac_one_of_belowMoment_eq_zero
     rw [measure_congr hBae, measure_empty]
     simp [Measure.dirac_apply' _ hB, Set.indicator_of_notMem h1]
 
-/-- Full dichotomy in Lemma 4.6: either the law is the degenerate law at
-one, or its positive lower moment gives the mixture formula (42). -/
+/-- Full mixture dichotomy: either the law is the degenerate law at one, or
+its positive lower moment gives the two-point mixture formula. -/
 theorem twoPointMixture_dichotomy
     {μ : Measure ℝ} [IsProbabilityMeasure μ]
     (hμ : Integrable (fun x : ℝ ↦ x) μ)

@@ -8,8 +8,8 @@ Let `σ` encode a maximal chain on `Fin n`, and let `J : Fin (n + 1)` be an
 insertion rank.  We identify the old ground set with the first `n` elements
 of `Fin (n + 1)` and use `Fin.last n` for the new element.  Before rank `J`
 the new chain is the lifted old chain; after rank `J` it is the lifted old
-chain with the new element adjoined.  These are precisely the two cases in
-equation (31) of the paper.
+chain with the new element adjoined.  These are the two cases of the
+inserted-chain construction used in the proof of Theorem 2.1.
 -/
 
 open Finset
@@ -98,7 +98,7 @@ private theorem succAbove_val_lt_succ_of_le {n : ℕ}
     omega
 
 /-- The states of the enlarged maximal chain, written directly in the two
-cases of equation (31). -/
+cases before and after the insertion rank. -/
 def insertedChainState {n : ℕ} (σ : Equiv.Perm (Fin n))
     (J : Fin (n + 1)) (j : Fin (n + 2)) : Finset (Fin (n + 1)) :=
   if h : j.val ≤ J.val then
@@ -108,7 +108,7 @@ def insertedChainState {n : ℕ} (σ : Equiv.Perm (Fin n))
     insert (Fin.last n) <| liftChainState (chainState σ
       ⟨j.val - 1, by omega⟩)
 
-/-- Equation (31), before the insertion rank. -/
+/-- The enlarged chain state before the insertion rank. -/
 theorem insertedChainState_before {n : ℕ} (σ : Equiv.Perm (Fin n))
     (J r : Fin (n + 1)) (hr : r ≤ J) :
     insertedChainState σ J r.castSucc =
@@ -116,8 +116,8 @@ theorem insertedChainState_before {n : ℕ} (σ : Equiv.Perm (Fin n))
   rw [insertedChainState, dif_pos (show r.castSucc.val ≤ J.val by exact hr)]
   congr 2
 
-/-- Equation (31), after the insertion rank: the new state consists of the
-corresponding old state together with the inserted element. -/
+/-- After the insertion rank, the new state consists of the corresponding
+old state together with the inserted element. -/
 theorem insertedChainState_after {n : ℕ} (σ : Equiv.Perm (Fin n))
     (J r : Fin (n + 1)) (hr : J ≤ r) :
     insertedChainState σ J r.succ =
@@ -197,8 +197,8 @@ theorem chainState_insertChainPerm_after {n : ℕ}
       mem_insert, Fin.castSucc_ne_last, false_or, mem_liftChainState]
     exact succAbove_val_lt_succ_of_le J r hr (σ.symm i)
 
-/-- The direct state formula (31) agrees at every level with the maximal
-chain encoded by the inserted permutation. -/
+/-- The direct inserted-state formula agrees at every level with the
+maximal chain encoded by the inserted permutation. -/
 theorem chainState_insertChainPerm_eq_insertedChainState {n : ℕ}
     (σ : Equiv.Perm (Fin n)) (J : Fin (n + 1)) (j : Fin (n + 2)) :
     chainState (insertChainPerm σ J) j =
