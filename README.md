@@ -1,12 +1,15 @@
 # Feige's unit-slack conjecture in Lean
 
 This repository gives a machine-checked Lean formalization of a proof of
-Feige's unit-slack conjecture in every fixed positive dimension `n`.  Specifically,
-it proves
+Feige's unit-slack conjecture in every fixed positive dimension `n`.  
+
+The proof is presented in *Sharp Small-Deviation Inequalities for Sums of Independent Nonnegative Random Variables* by Weibo Fu, Yanjun Han, Guanyang Wang, Jun Yan, Peng Zhang, and Zhengqing Zhou.
+
+Specifically, it proves
 
 $$
-  \Pr\!\left[\sum_{i=1}^n X_i
-    < \mathbb{E}\!\left(\sum_{i=1}^n X_i\right)+1\right]
+  \Pr \left[\sum_{i=1}^n X_i
+    < \mathbb{E} \left(\sum_{i=1}^n X_i\right)+1\right]
   \ge \left(\frac{n}{n+1}\right)^n
 $$
 
