@@ -3,7 +3,8 @@
 This repository gives a machine-checked Lean formalization of a proof of
 Feige's unit-slack conjecture in every fixed positive dimension `n`.  
 
-The proof is presented in *Sharp Small-Deviation Inequalities for Sums of Independent Nonnegative Random Variables* by Weibo Fu, Yanjun Han, Guanyang Wang, Jun Yan, Peng Zhang, and Zhengqing Zhou.
+The proof is presented in *Sharp Small-Deviation Inequalities for Sums of Independent Nonnegative Random Variables* by Weibo Fu, Yanjun Han, Guanyang Wang, Jun Yan, Peng Zhang, and Zhengqing Zhou. 
+ArXiv: https://arxiv.org/abs/2607.23980.
 
 Specifically, it proves
 
