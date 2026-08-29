@@ -173,7 +173,7 @@ Comparator 会机械检查 Challenge 与 Solution 的注册声明是否一致；
 - [x] 重新运行 Comparator、NanoDa 和公理审计。
 - [x] 检查 Git diff，确认没有提交 `Feige.pdf`、
       `feige_palomar_registration_work.md`、构建产物或缓存。
-- [ ] 创建 commit 并推送 `palomar-registration` 分支。
+- [x] 创建 commit 并推送 `palomar-registration` 分支。
 - [ ] 等待 Linux GitHub Actions 全部通过。
 - [ ] 使用通过验证的完整 40 字符 commit SHA 提交 Palomar Registry。
 
