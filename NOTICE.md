@@ -1,5 +1,5 @@
-Feige's Unit-Slack Conjecture in Lean
-Copyright 2026 Zhengqing Zhou and contributors
+Feige's 1/e Conjecture in Lean
+Copyright 2026 Guanyang Wang, Peng Zhang, and contributors
 
 # Attribution and third-party notice
 

@@ -1,4 +1,5 @@
 /.lake/
+/.cache/
 /.vscode/
 /.idea/
 /.DS_Store
@@ -7,3 +8,6 @@
 *.ilean
 *.trace
 /tmp/
+/Feige.pdf
+/feige_palomar_registration_work.md
+/formalization_yaml_review.md
