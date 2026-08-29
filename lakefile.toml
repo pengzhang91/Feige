@@ -1,7 +1,7 @@
 name = "feige"
 version = "0.1.0"
 keywords = ["mathematics", "probability", "formalization"]
-defaultTargets = ["VlassisThomas", "Grunbaum", "Feige"]
+defaultTargets = ["VlassisThomas", "Grunbaum", "Feige", "Challenge", "Solution"]
 
 [leanOptions]
 pp.unicode.fun = true
@@ -25,3 +25,11 @@ name = "Grunbaum"
 
 [[lean_lib]]
 name = "Feige"
+
+[[lean_lib]]
+name = "Challenge"
+roots = ["Challenge"]
+
+[[lean_lib]]
+name = "Solution"
+roots = ["Solution"]

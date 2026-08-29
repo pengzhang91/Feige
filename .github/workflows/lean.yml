@@ -20,6 +20,8 @@ jobs:
           - VlassisThomas
           - Grunbaum
           - Feige
+          - Challenge
+          - Solution
 
     steps:
       - name: Check out repository
@@ -41,13 +43,58 @@ jobs:
             VlassisThomas) lake env lean VlassisThomas/Audit.lean ;;
             Grunbaum) lake env lean Grunbaum/Audit.lean ;;
             Feige) lake env lean Feige/FinalAudit.lean ;;
+            Challenge|Solution) ;;
           esac
 
       - name: Reject proof placeholders and custom axioms
+        if: matrix.target == 'Feige'
         run: |
           if find . -path './.lake' -prune -o \
+              -path './Challenge.lean' -prune -o \
               -type f -name '*.lean' -print0 |
               xargs -0 grep -nE \
                 '(^|[^[:alnum:]_])(sorry|admit|sorryAx)([^[:alnum:]_]|$)|^[[:space:]]*axiom[[:space:]]'; then
             exit 1
           fi
+
+          challenge_sorry_count="$(
+            { grep -oE \
+                '(^|[^[:alnum:]_])sorry([^[:alnum:]_]|$)' \
+                Challenge.lean || true; } |
+              wc -l | tr -d '[:space:]'
+          )"
+          if [ "$challenge_sorry_count" -ne 1 ]; then
+            echo "Challenge.lean must contain exactly one deliberate theorem placeholder"
+            exit 1
+          fi
+
+          if grep -nE \
+              '(^|[^[:alnum:]_])(admit|sorryAx)([^[:alnum:]_]|$)|^[[:space:]]*axiom[[:space:]]' \
+              Challenge.lean; then
+            exit 1
+          fi
+
+  comparator:
+    name: Check Palomar statement and NanoDa replay
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          persist-credentials: false
+
+      - name: Configure Lean
+        uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9 # v1.5.0
+        with:
+          build: false
+
+      - name: Configure Go for Landrun
+        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v6.0.0
+        with:
+          go-version: "1.24.0"
+          cache: false
+
+      - name: Run pinned Comparator toolchain
+        run: bash scripts/verify-comparator.sh

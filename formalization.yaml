@@ -1,0 +1,247 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "Feige's 1/e Conjecture in Lean"
+  description: >-
+    A Lean 4 formalization of the sharp unit-slack (delta = 1)
+    small-deviation inequality for sums of independent nonnegative random
+    variables. For every positive integer n and every independent family
+    X_1, ..., X_n of measurable, integrable, nonnegative random variables
+    satisfying E[X_i] <= 1, writing S = sum_i X_i, it proves the sharp bound
+    P(S < E[S] + 1) >= (n / (n + 1))^n and proves that this constant is optimal
+    for each fixed n. This optimal dimension-dependent bound strengthens and
+    implies Feige's 1/e conjecture. The repository also formalizes the
+    Vlassis-Thomas exact calibration theorem and Grünbaum's
+    centroid-halfspace inequality used in the proof.
+  authors:
+    - "Guanyang Wang"
+    - "Peng Zhang"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Guanyang Wang"
+    - "Peng Zhang"
+
+classification:
+  arxiv: ["math.PR", "math.CO"]
+  msc2020: ["60E15", "60G50", "52A40"]
+
+sources:
+  - title: "Sharp Small-Deviation Inequalities for Sums of Independent Nonnegative Random Variables"
+    authors:
+      - "Weibo Fu"
+      - "Yanjun Han"
+      - "Guanyang Wang"
+      - "Jun Yan"
+      - "Peng Zhang"
+      - "Zhengqing Zhou"
+    id: "arXiv:2607.23980"
+    type: "paper"
+    location: "Theorem 1.1 and Corollary 1.2 at delta = 1; sharpness in Section 1.2"
+    relationship: "formalizes"
+    note: >-
+      The headline Lean theorem formalizes the delta = 1 specialization and
+      its fixed-dimensional optimality. The source proves bounds for every
+      delta > 0 and proves sharpness for every delta >= 1. Two source authors,
+      Guanyang Wang and Peng Zhang, are the formalization authors and
+      responsible maintainers.
+    author_endorsement: "participated"
+
+  - title: "An Exact Distribution-Free Test for Means of Nonnegative Random Variables"
+    authors:
+      - "Nikos Vlassis"
+      - "Philip S. Thomas"
+    id: "arXiv:2607.08415"
+    type: "paper"
+    location: "Theorem 1"
+    relationship: "formalizes"
+    note: >-
+      The repository reconstructs the exact calibration theorem used in the
+      Feige proof. Its standalone public interface uses the equivalent
+      independent-exponential representation; the equality with the original
+      Dirichlet/simplex representation is proved separately in the Feige
+      assembly.
+
+  - title: "Partitions of Mass-Distributions and of Convex Bodies by Hyperplanes"
+    authors:
+      - "Branko Grünbaum"
+    id: "doi:10.2140/pjm.1960.10.1257"
+    type: "paper"
+    location: "Pacific Journal of Mathematics 10 (1960), 1257--1261"
+    relationship: "formalizes"
+    note: >-
+      The repository formalizes the centroid-halfspace inequality for
+      full-dimensional convex bodies, its strict-boundary bridge, and the
+      sharp simplex calculation used by the Feige theorem.
+
+  - title: "On Sums of Independent Random Variables with Unbounded Variance and Estimating the Average Degree in a Graph"
+    authors:
+      - "Uriel Feige"
+    id: "doi:10.1137/S0097539704447304"
+    type: "paper"
+    location: "SIAM Journal on Computing 35(4) (2006), 964--984"
+    relationship: "background"
+    note: >-
+      This paper introduced the unit-slack lower-bound problem and conjectured
+      the universal constant 1/e. The formalized fixed-dimensional constant is
+      strictly larger than 1/e for finite positive n and converges to 1/e.
+
+  - title: "On Feige's Conjecture"
+    authors:
+      - "Zipei Nie"
+      - "Jiaye Wei"
+    id: "arXiv:2607.24528"
+    type: "paper"
+    relationship: "background"
+    note: >-
+      Contemporaneous independent work proving the sharp unit-slack bound in
+      the equal-means formulation. It is not used by this Lean development.
+
+  - title: "A Conditional Proof of Feige's Conjecture with a Sharp Finite-Dimensional Bound"
+    authors:
+      - "Mark Stander"
+    id: "doi:10.5281/zenodo.21626794"
+    type: "paper"
+    relationship: "background"
+    note: >-
+      Contemporaneous independent work giving a conditional proof of Feige's
+      conjecture with a sharp finite-dimensional bound. It is not used by this
+      Lean development.
+
+  - title: "On Samuels' Conjecture"
+    authors:
+      - "Zhi Ling"
+    id: "arXiv:2608.18392"
+    type: "paper"
+    relationship: "background"
+    note: >-
+      Later work proving a broader sharp small-deviation formula
+      from which Feige's conjecture follows. It is not used by this Lean
+      development.
+
+related_formalizations: []
+
+status:
+  scope: >-
+    The headline theorem covers every positive integer n, probability spaces
+    whose sample type lies in Lean's lowest universe (Omega : Type), and
+    families X : Fin n -> Omega -> Real that are measurable, integrable,
+    independent, pointwise nonnegative, and satisfy E[X_i] <= 1. It proves the
+    strict-event bound
+    P(sum X_i < E[sum X_i] + 1) >= (n / (n + 1))^n and proves that this
+    fixed-dimensional universal constant is optimal. It does not cover n = 0,
+    sample types in arbitrary higher universes, or slack delta != 1; in
+    particular it does not formalize the primary source's complete delta > 0
+    theorem or the additional convex-geometric input used outside the
+    unit-slack specialization. The repository does separately formalize the
+    exact-calibration and convex-body Grünbaum inputs used at delta = 1.
+    Historical exposition, asymptotic material beyond the formalized
+    convergence sharpConstant n -> exp(-1), statistical decision-procedure
+    interpretation, and source remarks not needed for the result are outside
+    the declaration-level scope. Proof-status counts exclude the single
+    deliberate theorem placeholder in Challenge.lean.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+  main_results:
+    - declaration: "PalomarFeige.sharp_unit_slack_feige_complete"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["gpt-5.6-sol"]
+      framework: "Codex"
+      tool_setup: >-
+        Interactive Codex agent workflow with reasoning effort set to ultra,
+        using Lean, Mathlib, Lake builds, source inspection, and kernel-axiom
+        audit files in the repository.
+      cost:
+        wall_time: "not tracked"
+        spend_usd: "not tracked"
+        hardware: "local development machine and hosted model service"
+      prompting_notes: >-
+        Repository-level prompts specified the mathematical target, requested
+        Lean implementation and repair, and required reproducible builds and
+        audits. The authors supplied provenance and registration decisions.
+  spend_usd: "not tracked"
+  notes: >-
+    This records automation used for the Lean formalization: Codex with
+    gpt-5.6-sol at ultra reasoning effort. The cited primary paper separately
+    reports ChatGPT 5.6 Pro in discovery of the mathematical proof. Human
+    formalization authors chose the target, sources, statement interface, and
+    metadata and remain responsible for final verification. Lean elaboration
+    and kernel-axiom audits mechanically check accepted proof terms but do not
+    replace human mathematical review.
+
+fidelity:
+  divergences: >-
+    The headline result is only the delta = 1 specialization of the primary
+    source's theorem for all delta > 0, although it includes the source's
+    fixed-dimensional optimality at delta = 1. Probability spaces are
+    quantified with Omega : Type rather than an arbitrary universe. In the
+    Vlassis-Thomas reconstruction, zero lower-side parameters are handled by
+    finite-dimensional continuity instead of deleting deterministic
+    coordinates; the standalone calibration theorem uses an equivalent
+    independent-exponential representation, with the Dirichlet/simplex
+    identity proved in a separate Feige module; and Remark 4 is represented
+    only by the one-step payoff-independent insertion weights and averaged
+    domination inequality, not by a global random-permutation law. The
+    Grünbaum target covers the convex-body centroid-halfspace theorem needed
+    here, rather than every mass-distribution statement in the 1960 paper.
+    Historical, asymptotic, statistical, and expository material not used by
+    the headline theorem is not represented as separate Lean declarations.
+
+review:
+  status: "author-verified"
+  reviewers:
+    - "Guanyang Wang"
+    - "Peng Zhang"
+  notes: >-
+    On 2026-08-29, Guanyang Wang and Peng Zhang reviewed and approved
+    Challenge.lean, Solution.lean, and formalization.yaml. This was author
+    verification of the advertised statement, the solution bridge, and the
+    metadata, not external peer review. Builds, Comparator checks, and
+    kernel-axiom audits are mechanical checks rather than human mathematical
+    review.
+
+alignment:
+  namespace: "PalomarFeige"
+  statements:
+    - source: "Fu et al., Theorem 1.1 and Corollary 1.2 at delta = 1; sharpness in Section 1.2"
+      lean: "PalomarFeige.sharp_unit_slack_feige_complete"
+      module: "Challenge"
+      status: "proved"
+      note: >-
+        The Challenge declaration states the strict unit-slack bound and
+        fixed-dimensional optimality. Solution proves the identical statement
+        by bridging to Feige.sharp_unit_slack_feige_complete.
+    - source: "Vlassis and Thomas, Theorem 1"
+      lean: "VlassisThomas.exactCalibration"
+      module: "VlassisThomas.Main"
+      status: "proved"
+      note: >-
+        The public theorem uses the equivalent exponential definition of the
+        statistic; a separate Feige module proves agreement with the source's
+        Dirichlet/simplex definition. This supporting public theorem is part of
+        the repository but is not selected as a separate declaration by the
+        present Comparator configuration.
+    - source: "Grünbaum's centroid-halfspace theorem for convex bodies"
+      lean: "Grunbaum.grunbaum_centroid_halfspace"
+      module: "Grunbaum.Main"
+      status: "proved"
+      note: >-
+        The theorem is stated for the project's full-dimensional convex-body
+        structure in Euclidean dimension d + 1; separate modules establish the
+        strict-boundary bridge and the sharp simplex example. This supporting
+        public theorem is part of the repository but is not selected as a
+        separate declaration by the present Comparator configuration.
+
+acknowledgements: >-
+  The project uses Lean and Mathlib. Brunn-Minkowski support files under
+  LeanPool/Isoperimetric are by Jonathan Ho and retain their Apache-2.0
+  notices; selected Grünbaum modules retain their OpenAI copyright headers.
+  Codex assistance is disclosed in the automation section.
